@@ -6,7 +6,18 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Determine if we're building for GitHub Pages
+const isGitHubPages = process.env.GITHUB_PAGES === 'true';
+const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'sreai';
+
 export default defineConfig(({ mode }) => ({
+  // Set base URL for GitHub Pages deployment
+  base: isGitHubPages ? `/${repoName}/` : mode === "demo" ? "/demo/" : "/",
+  define: {
+    // Pass environment variables to client
+    'import.meta.env.VITE_GITHUB_PAGES': JSON.stringify(isGitHubPages ? 'true' : 'false'),
+    'import.meta.env.VITE_REPO_NAME': JSON.stringify(repoName),
+  },
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -19,10 +30,20 @@ export default defineConfig(({ mode }) => ({
     },
   },
   root: path.resolve(__dirname, "client"),
-  base: mode === "demo" ? "/demo/" : "/",
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: isGitHubPages 
+      ? path.resolve(__dirname, "dist/github-pages")
+      : path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    // Optimize for static hosting
+    rollupOptions: isGitHubPages ? {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+        },
+      },
+    } : undefined,
   },
   server: {
     port: 3000,
