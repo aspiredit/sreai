@@ -74,9 +74,9 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
               <img 
-                src="/attached_assets/sreai_1758074442530.png" 
+                src="/generated_images/Before_after_workflow_transformation_illustration_7f275dcf.png" 
                 alt="sreai logo" 
-                className="w-8 h-8"
+                className="w-8 h-8 rounded"
               />
               <h1 className="text-xl font-semibold text-foreground">sreai</h1>
             </div>
@@ -176,7 +176,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
                   }`}
                 >
                   <img 
-                    src="/attached_assets/generated_images/Before_after_workflow_transformation_illustration_7f275dcf.png"
+                    src="/generated_images/Before_after_workflow_transformation_illustration_7f275dcf.png"
                     alt="Before and after workflow transformation showing chaotic systems becoming organized diagnostics"
                     className="w-full h-auto rounded-lg shadow-lg"
                     onLoad={() => setHeroImageLoaded(true)}
@@ -275,68 +275,35 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                See sreai in Action
+                Try sreai Demo
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Experience the power of intelligent application monitoring through interactive demos,
-                screenshots, and video walkthroughs
+                Experience the power of intelligent application monitoring with our interactive demo
               </p>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-8">
-                <Card className="hover-elevate cursor-pointer transition-all duration-200">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Play className="w-5 h-5 text-primary" />
-                      Interactive Demo
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
-                      Try our live demo with sample data to explore the admin dashboard, 
-                      user interface, and AI chat functionality.
-                    </p>
-                    <Button className="w-full" data-testid="button-interactive-demo">
-                      Launch Interactive Demo
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="hover-elevate cursor-pointer transition-all duration-200">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <ImageIcon className="w-5 h-5 text-primary" />
-                      Dashboard Screenshots
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
-                      Browse through high-resolution screenshots of our admin and user dashboards
-                      showing real-world monitoring scenarios.
-                    </p>
-                    <Button variant="outline" className="w-full" data-testid="button-screenshots">
-                      View Screenshots
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="bg-card rounded-lg border border-card-border p-8">
-                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-4">
-                  <div className="text-center">
-                    <Play className="w-16 h-16 text-primary mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">Product Walkthrough</h3>
-                    <p className="text-sm text-muted-foreground">
-                      5-minute overview of key features
-                    </p>
-                  </div>
-                </div>
-                <Button className="w-full gap-2" data-testid="button-video-demo">
-                  <Play className="w-4 h-4" />
-                  Watch Video Demo
-                </Button>
-              </div>
+            <div className="max-w-md mx-auto">
+              <Card className="hover-elevate cursor-pointer transition-all duration-200">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Play className="w-5 h-5 text-primary" />
+                    Interactive Demo
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-4">
+                    Try our live demo with sample data to explore the admin dashboard, 
+                    user interface, and AI chat functionality.
+                  </p>
+                  <Button 
+                    className="w-full" 
+                    data-testid="button-interactive-demo"
+                    onClick={() => window.location.href = '/demo/login'}
+                  >
+                    Launch Interactive Demo
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>

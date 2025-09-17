@@ -19,13 +19,22 @@ interface ChatInterfaceProps {
   isMinimized?: boolean;
   onToggleMinimize?: () => void;
   className?: string;
+  userRole?: "admin" | "user";
 }
 
-export default function ChatInterface({ isMinimized = false, onToggleMinimize, className }: ChatInterfaceProps) {
+export default function ChatInterface({ isMinimized = false, onToggleMinimize, className, userRole = "admin" }: ChatInterfaceProps) {
+  const getInitialMessage = () => {
+    if (userRole === "admin") {
+      return "Hello! I'm your AI configuration assistant. I can help you set up connectors, troubleshoot issues, configure monitoring, and optimize your application diagnostics. How can I help you today?";
+    } else {
+      return "Hello! I'm your AI assistant for application monitoring. I can help you analyze logs, traces, code issues, and provide insights about your applications. What would you like to know?";
+    }
+  };
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      content: "Hello! I'm your AI configuration assistant. I can help you set up connectors, troubleshoot issues, and optimize your application monitoring. How can I help you today?",
+      content: getInitialMessage(),
       sender: "assistant",
       timestamp: new Date(Date.now() - 60000)
     }
@@ -47,14 +56,31 @@ export default function ChatInterface({ isMinimized = false, onToggleMinimize, c
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response
+    // Simulate AI response based on user role
     setTimeout(() => {
-      const responses = [
-        "I can help you configure that connector. Let me walk you through the setup process...",
-        "Based on your application metrics, I recommend setting up monitoring alerts for these key indicators...", 
-        "I've analyzed your logs and found a few potential issues. Here's what I suggest...",
-        "That's a great question about runbook automation. Let me explain the best practices..."
-      ];
+      let responses: string[];
+      
+      if (userRole === "admin") {
+        responses = [
+          "I can help you configure that connector. Let me walk you through the setup process...",
+          "Based on your application metrics, I recommend setting up monitoring alerts for these key indicators...", 
+          "I've analyzed your logs and found a few potential issues. Here's what I suggest...",
+          "That's a great question about runbook automation. Let me explain the best practices...",
+          "I can help you set up GitHub integration for your code repository monitoring...",
+          "Let me configure the CloudWatch logs connector for better observability...",
+          "I recommend enabling these security connectors for comprehensive monitoring..."
+        ];
+      } else {
+        responses = [
+          "I've analyzed your application logs and found some interesting patterns...",
+          "Looking at your traces, I can see the performance bottlenecks in your system...",
+          "Your code metrics show good coverage, but here are some areas for improvement...",
+          "Based on the error logs, I suggest checking these specific functions...",
+          "I can help you understand the correlation between your logs and traces...",
+          "Let me break down the performance issues I found in your application...",
+          "Your monitoring data shows some anomalies that we should investigate..."
+        ];
+      }
       
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
@@ -188,7 +214,7 @@ export default function ChatInterface({ isMinimized = false, onToggleMinimize, c
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask about connectors, configurations..."
+            placeholder={userRole === "admin" ? "Ask about connectors, configurations..." : "Ask about logs, traces, code issues..."}
             className="flex-1"
             data-testid="input-chat-message"
           />
