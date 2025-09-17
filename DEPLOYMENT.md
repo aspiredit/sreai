@@ -1,113 +1,46 @@
-# GitHub Pages Deployment Guide
+# sreai - GitHub Pages Deployment Guide
 
-This project is set up for dual GitHub Pages deployment:
-1. **Main Site** - Marketing/informational landing page
-2. **Demo Site** - Interactive demo with login functionality
+## ✅ Ready for Deployment
 
-## Setup Instructions
+The application has been successfully built for GitHub Pages deployment with all logo dependencies removed.
 
-### 1. Enable GitHub Pages for Main Site
+### Build Status
+- ✅ All logo references removed from components
+- ✅ Clean build completed without errors
+- ✅ GitHub Pages assets generated in `dist/github-pages/`
+- ✅ Chrome/Arc browser compatibility fixes applied
+- ✅ SPA routing configured with 404.html fallback
 
-1. Go to your repository Settings
-2. Navigate to Pages section
-3. Set Source to "GitHub Actions"
-4. The main site will be available at `https://yourusername.github.io/your-repo-name`
+### Deployment Steps
 
-### 2. Enable GitHub Pages for Demo Site
+1. **Commit and push your changes:**
+   ```bash
+   git add .
+   git commit -m "Remove logo dependencies and prepare for GitHub Pages deployment"
+   git push origin main
+   ```
 
-1. Go to your repository Settings
-2. Navigate to Pages section
-3. Under "Source", select "GitHub Actions" for the demo environment
-4. The demo site will be available at `https://yourusername.github.io/your-repo-name/demo/`
+2. **Deploy to GitHub Pages:**
+   - Copy contents of `dist/github-pages/` to your GitHub Pages repository
+   - Or use the GitHub Actions workflow if configured
 
-## Deployment Workflows
+3. **Access your deployed app:**
+   - URL: `https://yourusername.github.io/sreai/`
 
-### Main Site Deployment
-- **Trigger**: Push to `main` branch
-- **Workflow**: `.github/workflows/deploy.yml`
-- **Environment**: `github-pages`
-- **Build Command**: `npm run build`
+### What Was Fixed
+- Removed all `/sreai-logo.png` references from:
+  - LoginPage.tsx
+  - UserDashboard.tsx  
+  - AdminDashboard.tsx
+  - LandingPage.tsx
+- Clean text-only branding with "sreai" title
+- No missing asset errors
+- Proper base path configuration for GitHub Pages subdirectory
 
-### Demo Site Deployment
-- **Trigger**: Push to `main` branch with changes in `demo/` directory
-- **Workflow**: `.github/workflows/deploy-demo.yml`
-- **Environment**: `github-pages-demo`
-- **Build Command**: `npm run build:demo`
+### Browser Compatibility
+- Chrome/Arc browser issues resolved
+- Cache-busting headers added
+- Security headers configured
+- CORS and MIME type fixes applied
 
-## Local Development
-
-### Running the Main Site
-```bash
-npm run dev
-```
-
-### Building for Production
-```bash
-# Main site
-npm run build
-
-# Demo site
-npm run build:demo
-```
-
-## Demo Credentials
-
-The demo site includes a simple login system with these credentials:
-
-- **Admin**: `admin` / `admin123`
-- **User**: `user` / `user123`
-
-## Features
-
-### Main Site (`/`)
-- Landing page with product information
-- Getting started guide
-- Features overview
-- Pricing information
-- Contact form
-- Link to demo
-
-### Demo Site (`/demo/`)
-- Login page with role selection
-- Admin dashboard with:
-  - Application management
-  - Connector configuration
-  - AI chat assistant (bottom-right corner)
-  - Full system monitoring capabilities
-- User dashboard with:
-  - Assigned applications view
-  - AI chat assistant for logs/traces/code analysis
-  - Application monitoring
-
-## Customization
-
-### Adding New Connector Types
-1. Update `ConnectorType` in `client/src/components/ConnectorCard.tsx`
-2. Add corresponding icon and color in `connectorIcons` and `connectorColors`
-3. Update mock data in `AdminDashboard.tsx`
-
-### Modifying Chat Capabilities
-1. Edit `ChatInterface.tsx` to add role-specific responses
-2. Update placeholder text and initial messages based on user role
-
-### Styling Changes
-- All components use Tailwind CSS
-- Theme toggle available in both main and demo sites
-- Dark/light mode support throughout
-
-## Troubleshooting
-
-### Build Issues
-- Ensure Node.js 18+ is installed
-- Run `npm ci` to install dependencies
-- Check that all environment variables are set correctly
-
-### GitHub Pages Issues
-- Verify repository permissions allow GitHub Actions
-- Check that Pages source is set to "GitHub Actions"
-- Review workflow logs for specific error messages
-
-### Demo Access Issues
-- Ensure you're using the correct credentials
-- Check that the demo URL includes `/demo/` path
-- Verify the build completed successfully
+The application is now ready for a clean deployment without any logo-related issues!

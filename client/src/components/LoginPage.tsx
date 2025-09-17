@@ -38,15 +38,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <img
-            src="/sreai-logo.png"
-            alt="sreai logo"
-            className="w-16 h-16 object-contain mx-auto mb-4"
-            onError={(e) => {
-              console.log('Logo failed to load, trying fallback');
-              e.currentTarget.src = '/sreai_1758074442530.png';
-            }}
-          />
           <h1 className="text-2xl font-bold text-foreground">sreai</h1>
           <p className="text-muted-foreground mt-2">Agentic AI for Faster Incident Resolution</p>
         </div>

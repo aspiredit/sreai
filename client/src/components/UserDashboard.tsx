@@ -76,15 +76,6 @@ export default function UserDashboard({ onLogout }: UserDashboardProps) {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
-                <img 
-                  src="/sreai-logo.png"
-                  alt="sreai logo" 
-                  className="w-8 h-8 rounded"
-                  onError={(e) => {
-                    console.log('Logo failed to load, trying fallback');
-                    e.currentTarget.src = '/sreai_1758074442530.png';
-                  }}
-                />
                 <h1 className="text-xl font-semibold text-foreground">sreai</h1>
               </div>
               
