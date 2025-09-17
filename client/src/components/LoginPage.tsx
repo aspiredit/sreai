@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ArrowLeft, LogIn } from "lucide-react";
+import Logo from "@/components/Logo";
 
 interface LoginPageProps {
   onLogin: (role: "admin" | "user") => void;
@@ -38,11 +39,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <img
-            src="/sreai_1758074442530.png"
-            alt="sreai logo"
-            className="w-16 h-16 object-contain mx-auto mb-4"
-          />
+          <div className="mx-auto mb-4">
+            <Logo size="lg" />
+          </div>
           <h1 className="text-2xl font-bold text-foreground">sreai</h1>
           <p className="text-muted-foreground mt-2">Agentic AI for Faster Incident Resolution</p>
         </div>
