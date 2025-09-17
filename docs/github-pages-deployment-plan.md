@@ -28,6 +28,24 @@ This plan outlines the steps to deploy your demo site to GitHub Pages using the 
 
 ### 2. GitHub Pages Configuration
 
+**⚠️ IMPORTANT: Enable GitHub Pages First**
+
+Before running any deployment, you MUST enable GitHub Pages in your repository:
+
+1. **Go to Repository Settings**
+   - Navigate to your repository on GitHub
+   - Click the **Settings** tab
+   - Scroll to **Pages** in the left sidebar
+
+2. **Configure Source**
+   - Under **Source**, select **GitHub Actions**
+   - Click **Save**
+
+3. **Set Permissions** (if needed)
+   - Go to **Settings** → **Actions** → **General**
+   - Under **Workflow permissions**, select **Read and write permissions**
+   - Enable **Allow GitHub Actions to create and approve pull requests**
+
 #### Option A: Manual Deployment
 1. **Build the static site locally**
    ```bash
@@ -170,17 +188,38 @@ After deployment:
 
 ## Troubleshooting
 
+### ⚠️ "Get Pages site failed" Error
+
+If you see this error in GitHub Actions:
+```
+HttpError: Not Found
+Get Pages site failed. Please verify that the repository has Pages enabled
+```
+
+**Solution**: You must manually enable GitHub Pages in repository settings first!
+
+1. Go to **Settings** → **Pages**
+2. Source: **GitHub Actions**
+3. Save
+
+See `docs/GITHUB_PAGES_TROUBLESHOOTING.md` for detailed troubleshooting steps.
+
 ### Common Issues
 
-1. **404 on navigation**
+1. **GitHub Actions fails on first run**
+   - Enable GitHub Pages in repository settings
+   - Set correct workflow permissions
+   - Wait 5-10 minutes for first deployment
+
+2. **404 on navigation**
    - Ensure 404.html is created (handled by build script)
    - Verify base URL configuration
 
-2. **Assets not loading**
+3. **Assets not loading**
    - Check base URL in vite.config.ts
    - Verify GITHUB_REPOSITORY environment variable
 
-3. **Build failures**
+4. **Build failures**
    - Check Node.js version compatibility
    - Verify all dependencies are installed
 
@@ -195,6 +234,9 @@ ls -la dist/github-pages/
 
 # Verify base URL in HTML
 grep -r "sreai" dist/github-pages/
+
+# Test with specific repository
+GITHUB_REPOSITORY=username/sreai npm run build:github-pages
 ```
 
 ## Next Steps
