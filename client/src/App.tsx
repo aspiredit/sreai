@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, Router, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,8 +8,9 @@ import LoginPage from "@/components/LoginPage";
 import AdminDashboard from "@/components/AdminDashboard";
 import UserDashboard from "@/components/UserDashboard";
 import NotFound from "@/pages/not-found";
+import { getBasePath } from "./lib/router";
 
-function Router() {
+function AppRouter() {
   const [currentRole, setCurrentRole] = useState<"admin" | "user" | null>(null);
   const [location, setLocation] = useLocation();
 
@@ -44,11 +45,15 @@ function Router() {
 }
 
 function App() {
+  const basePath = getBasePath();
+  
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <Router base={basePath}>
+          <AppRouter />
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
