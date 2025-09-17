@@ -60,6 +60,10 @@ try {
     console.log('📄 Created 404.html for SPA routing');
   }
 
+  // Apply Chrome/Arc browser compatibility fixes
+  console.log('🔧 Applying browser compatibility fixes...');
+  execSync('node scripts/fix-chrome-compatibility.js', { stdio: 'inherit' });
+
   console.log('✅ GitHub Pages build completed successfully!');
   console.log(`📁 Output directory: ${outputDir}`);
 
