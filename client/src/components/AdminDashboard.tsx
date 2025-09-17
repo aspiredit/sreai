@@ -90,10 +90,10 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
         <div className="flex items-center gap-2">
           <img 
             src="/sreai-logo.png" 
-            alt="sreaitest logo" 
+            alt="sreai logo" 
             className="w-8 h-8 rounded"
           />
-          <span className="font-semibold text-lg">sreaitest</span>
+          <span className="font-semibold text-lg">sreai</span>
         </div>
       </SidebarHeader>
       

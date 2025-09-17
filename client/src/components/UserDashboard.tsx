@@ -78,10 +78,10 @@ export default function UserDashboard({ onLogout }: UserDashboardProps) {
               <div className="flex items-center gap-3">
                 <img 
                   src="/sreai-logo.png" 
-                  alt="sreaitest logo" 
+                  alt="sreai logo" 
                   className="w-8 h-8 rounded"
                 />
-                <h1 className="text-xl font-semibold text-foreground">sreaitest</h1>
+                <h1 className="text-xl font-semibold text-foreground">sreai</h1>
               </div>
               
               <div className="relative">

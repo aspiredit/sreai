@@ -40,11 +40,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         <div className="mb-8 text-center">
           <img
             src="/sreai-logo.png"
-            alt="sreaitest logo"
+            alt="sreai logo"
             className="w-16 h-16 object-contain mx-auto mb-4"
           />
-          <h1 className="text-2xl font-bold text-foreground">sreaitest</h1>
-          <p className="text-muted-foreground mt-2">AI-Powered SRE Platform</p>
+          <h1 className="text-2xl font-bold text-foreground">sreai</h1>
+          <p className="text-muted-foreground mt-2">Agentic AI for Faster Incident Resolution</p>
         </div>
 
         <Card>

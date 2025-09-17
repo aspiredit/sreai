@@ -40,8 +40,8 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
     },
     {
       icon: MessageSquare,
-      title: "AI-Powered Chat",
-      description: "Configure and troubleshoot with natural language AI assistance"
+      title: "Agentic AI Assistant",
+      description: "Autonomous AI agents that proactively identify, analyze, and resolve incidents"
     },
     {
       icon: Users,
@@ -75,10 +75,10 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
             <div className="flex items-center gap-3">
               <img 
                 src="/generated_images/Before_after_workflow_transformation_illustration_7f275dcf.png" 
-                alt="sreaitest logo" 
+                alt="sreai logo" 
                 className="w-8 h-8 rounded"
               />
-              <h1 className="text-xl font-semibold text-foreground">sreaitest</h1>
+              <h1 className="text-xl font-semibold text-foreground">sreai</h1>
             </div>
             
             <nav className="hidden md:flex items-center gap-8">
@@ -116,12 +116,12 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
                 <h1 className="text-5xl font-bold text-foreground mb-6">
-                  Professional SRE & 
-                  <span className="text-primary"> AI Diagnostics Platform</span>
+                  Agentic AI for 
+                  <span className="text-primary"> Faster Incident Resolution</span>
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
-                  Transform chaotic application monitoring into organized, intelligent diagnostics. 
-                  Monitor, configure, and troubleshoot your applications with AI-powered assistance.
+                  Autonomous AI agents accelerate incident resolution with intelligent root cause analysis, 
+                  automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -275,10 +275,10 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                Try sreaitest Demo
+                Try sreai Demo
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Experience the power of intelligent application monitoring with our interactive demo
+                Experience autonomous AI agents in action with intelligent incident resolution
               </p>
             </div>
             
@@ -425,7 +425,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
                     {
                       icon: Mail,
                       title: "Email Us",
-                      content: "hello@sreaitest.com",
+                      content: "hello@sreai.com",
                       subtitle: "We'll respond within 24 hours"
                     },
                     {
@@ -515,7 +515,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
               Trusted by development teams worldwide
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Join thousands of teams using sreaitest to keep their applications running smoothly
+              Join thousands of teams using sreai to accelerate incident resolution
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -546,7 +546,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
       <footer className="bg-background border-t border-card-border py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground">
-            © 2025 sreaitest. AI-powered application intelligence and monitoring platform.
+            © 2025 sreai. Agentic AI for faster incident resolution and autonomous system monitoring.
           </p>
         </div>
       </footer>
