@@ -89,7 +89,7 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
           <img 
-            src="/sreai-logo.png" 
+            src="/sreai_1758074442530.png" 
             alt="sreai logo" 
             className="w-8 h-8 rounded"
           />

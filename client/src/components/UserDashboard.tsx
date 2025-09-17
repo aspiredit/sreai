@@ -77,7 +77,7 @@ export default function UserDashboard({ onLogout }: UserDashboardProps) {
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
                 <img 
-                  src="/sreai-logo.png" 
+                  src="/sreai_1758074442530.png" 
                   alt="sreai logo" 
                   className="w-8 h-8 rounded"
                 />

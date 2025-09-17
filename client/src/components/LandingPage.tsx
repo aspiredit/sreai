@@ -74,7 +74,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
               <img 
-                src="/generated_images/Before_after_workflow_transformation_illustration_7f275dcf.png" 
+                src="/sreai_1758074442530.png" 
                 alt="sreai logo" 
                 className="w-8 h-8 rounded"
               />

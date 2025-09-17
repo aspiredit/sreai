@@ -39,7 +39,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <img
-            src="/sreai-logo.png"
+            src="/sreai_1758074442530.png"
             alt="sreai logo"
             className="w-16 h-16 object-contain mx-auto mb-4"
           />
