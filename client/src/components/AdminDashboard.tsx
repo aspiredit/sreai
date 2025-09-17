@@ -89,7 +89,11 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
           <img 
-            src="/sreai_1758074442530.png" 
+            src="/sreai-logo.png"
+            onError={(e) => {
+              console.log('Logo failed to load, trying fallback');
+              e.currentTarget.src = '/sreai_1758074442530.png';
+            }} 
             alt="sreai logo" 
             className="w-8 h-8 rounded"
           />
