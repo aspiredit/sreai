@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch, Route, Router, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -10,14 +10,32 @@ import AdminDashboard from "@/components/AdminDashboard";
 import UserDashboard from "@/components/UserDashboard";
 import NotFound from "@/pages/not-found";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import PerformanceDashboard from "@/components/PerformanceDashboard";
 import { getBasePath } from "./lib/router";
+import { initializePerformanceMonitoring, performanceUtils } from "@/lib/performance";
+import { initializePerformanceOptimizations } from "@/lib/serviceWorker";
 
 function AppRouter() {
   const [currentRole, setCurrentRole] = useState<"admin" | "user" | null>(null);
   const [isInDemo, setIsInDemo] = useState(false);
   const [location, setLocation] = useLocation();
 
+  // Initialize performance monitoring and optimizations on app start
+  useEffect(() => {
+    const monitor = initializePerformanceMonitoring();
+    performanceUtils.mark('app-start');
+    
+    // Initialize performance optimizations (service worker, caching, etc.)
+    initializePerformanceOptimizations();
+
+    return () => {
+      performanceUtils.mark('app-end');
+      performanceUtils.measure('app-lifetime', 'app-start', 'app-end');
+    };
+  }, []);
+
   const handleDemoAccess = () => {
+    performanceUtils.mark('demo-access');
     setIsInDemo(true);
     console.log("Entering demo mode");
   };
@@ -90,6 +108,7 @@ function App() {
           <Router base={basePath}>
             <AppRouter />
           </Router>
+          <PerformanceDashboard />
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorBoundary>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/use-scroll-animation";
 import { responsiveTypography, responsiveSpacing } from "@/lib/responsive";
-import { colors, spacing, borderRadius, shadows } from "@/lib/design-system";
+import { colors, spacing, borderRadius, shadows, typography } from "@/lib/design-system";
 import { Section, Container, Heading, Text, Badge } from "@/components/ui/styled-components";
 import ParallaxBackground from "./ParallaxBackground";
 
