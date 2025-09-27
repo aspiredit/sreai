@@ -3,25 +3,38 @@ const CACHE_NAME = 'yesre-marketing-v1';
 const STATIC_CACHE_NAME = 'yesre-static-v1';
 const DYNAMIC_CACHE_NAME = 'yesre-dynamic-v1';
 
-// Assets to cache immediately
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  // Add other critical assets here
-];
+// Detect if we're on GitHub Pages
+const isGitHubPages = self.location.hostname.includes('github.io') ||
+  self.location.pathname.includes('/sreai/');
 
-// Assets to cache on first request
+// Get base path for GitHub Pages
+const getBasePath = () => {
+  if (!isGitHubPages) return '';
+  const pathParts = self.location.pathname.split('/');
+  return pathParts.length > 1 ? `/${pathParts[1]}` : '';
+};
+
+const basePath = getBasePath();
+
+// Assets to cache immediately (with base path support)
+const STATIC_ASSETS = [
+  basePath + '/',
+  basePath + '/index.html',
+  basePath + '/manifest.json',
+  // Add other critical assets here
+].filter(Boolean);
+
+// Assets to cache on first request (with base path support)
 const DYNAMIC_ASSETS = [
-  '/demo/login',
-  '/demo/admin',
-  '/demo/user'
-];
+  basePath + '/demo/login',
+  basePath + '/demo/admin',
+  basePath + '/demo/user'
+].filter(Boolean);
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker');
-  
+
   event.waitUntil(
     caches.open(STATIC_CACHE_NAME)
       .then((cache) => {
@@ -41,15 +54,15 @@ self.addEventListener('install', (event) => {
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activating service worker');
-  
+
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE_NAME && 
-                cacheName !== DYNAMIC_CACHE_NAME &&
-                cacheName !== CACHE_NAME) {
+            if (cacheName !== STATIC_CACHE_NAME &&
+              cacheName !== DYNAMIC_CACHE_NAME &&
+              cacheName !== CACHE_NAME) {
               console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
@@ -73,8 +86,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip external requests
-  if (url.origin !== location.origin) {
+  // Skip external requests (but allow GitHub Pages subdirectory)
+  if (url.origin !== location.origin && !url.pathname.startsWith(basePath)) {
     return;
   }
 
@@ -92,11 +105,11 @@ self.addEventListener('fetch', (event) => {
 
 // Check if request is for a static asset
 function isStaticAsset(url) {
-  return url.includes('/assets/') || 
-         url.endsWith('.js') || 
-         url.endsWith('.css') || 
-         url.endsWith('.woff2') || 
-         url.endsWith('.woff');
+  return url.includes('/assets/') ||
+    url.endsWith('.js') ||
+    url.endsWith('.css') ||
+    url.endsWith('.woff2') ||
+    url.endsWith('.woff');
 }
 
 // Check if request is for API
@@ -114,13 +127,13 @@ async function handleStaticAsset(request) {
   try {
     const cache = await caches.open(STATIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       // Return cached version and update in background
       updateCacheInBackground(request, cache);
       return cachedResponse;
     }
-    
+
     // Not in cache, fetch and cache
     const response = await fetch(request);
     if (response.ok) {
@@ -138,24 +151,24 @@ async function handleAPIRequest(request) {
   try {
     // Always try network first for API requests
     const response = await fetch(request);
-    
+
     // Cache successful GET requests
     if (response.ok && request.method === 'GET') {
       const cache = await caches.open(DYNAMIC_CACHE_NAME);
       cache.put(request, response.clone());
     }
-    
+
     return response;
   } catch (error) {
     // Try cache as fallback
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
-    return new Response('API not available', { 
+
+    return new Response('API not available', {
       status: 503,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Service unavailable' })
@@ -168,11 +181,11 @@ async function handleImageRequest(request) {
   try {
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     const response = await fetch(request);
     if (response.ok) {
       cache.put(request, response.clone());
@@ -189,30 +202,30 @@ async function handleImageRequest(request) {
 async function handleDynamicRequest(request) {
   try {
     const response = await fetch(request);
-    
+
     if (response.ok) {
       const cache = await caches.open(DYNAMIC_CACHE_NAME);
       cache.put(request, response.clone());
     }
-    
+
     return response;
   } catch (error) {
     // Try cache as fallback
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // Return offline page or main page as fallback
     const mainPageCache = await caches.open(STATIC_CACHE_NAME);
     const mainPage = await mainPageCache.match('/');
-    
+
     if (mainPage) {
       return mainPage;
     }
-    
+
     return new Response('Page not available offline', { status: 404 });
   }
 }
@@ -232,22 +245,22 @@ async function updateCacheInBackground(request, cache) {
 // Handle messages from main thread
 self.addEventListener('message', (event) => {
   const { type, payload } = event.data;
-  
+
   switch (type) {
     case 'SKIP_WAITING':
       self.skipWaiting();
       break;
-      
+
     case 'CACHE_URLS':
       if (payload && payload.urls) {
         cacheUrls(payload.urls);
       }
       break;
-      
+
     case 'CLEAR_CACHE':
       clearAllCaches();
       break;
-      
+
     default:
       console.log('[SW] Unknown message type:', type);
   }
@@ -281,19 +294,19 @@ async function clearAllCaches() {
 self.addEventListener('fetch', (event) => {
   // Track fetch performance
   const startTime = performance.now();
-  
+
   event.respondWith(
     (async () => {
       try {
         const response = await handleRequest(event.request);
         const endTime = performance.now();
         const duration = endTime - startTime;
-        
+
         // Log slow requests in development
         if (duration > 1000) {
           console.warn(`[SW] Slow request (${duration.toFixed(2)}ms):`, event.request.url);
         }
-        
+
         return response;
       } catch (error) {
         console.error('[SW] Request failed:', error);
