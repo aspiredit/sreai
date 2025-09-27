@@ -8,6 +8,7 @@ import MarketingHomepage from "@/components/MarketingHomepage";
 import LoginPage from "@/components/LoginPage";
 import AdminDashboard from "@/components/AdminDashboard";
 import UserDashboard from "@/components/UserDashboard";
+import ApplicationDetailView from "@/components/ApplicationDetailView";
 import NotFound from "@/pages/not-found";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import PerformanceDashboard from "@/components/PerformanceDashboard";
@@ -86,6 +87,13 @@ function AppRouter() {
         currentRole === "user" ? (
           <UserDashboard 
             onLogout={handleLogout} 
+            onBackToMarketing={handleBackToMarketing}
+          />
+        ) : <NotFound />
+      )} />
+      <Route path="/demo/user/application/:appId" component={() => (
+        currentRole === "user" ? (
+          <ApplicationDetailView 
             onBackToMarketing={handleBackToMarketing}
           />
         ) : <NotFound />
