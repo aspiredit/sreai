@@ -42,3 +42,19 @@ export const navigate = (path: string): void => {
   // Dispatch a custom event to trigger router updates
   window.dispatchEvent(new PopStateEvent('popstate'));
 };
+
+// Helper to determine if current path is in demo mode
+export const isDemoRoute = (path: string): boolean => {
+  return path.startsWith('/demo');
+};
+
+// Helper to get marketing section from hash or path
+export const getMarketingSection = (path: string): string => {
+  if (path === '/' || path === '') return 'home';
+  
+  // Handle hash-based navigation for marketing sections
+  const hash = window.location.hash.replace('#', '');
+  if (hash) return hash;
+  
+  return 'home';
+};

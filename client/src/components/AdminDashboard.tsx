@@ -18,6 +18,7 @@ import InfrastructureConnector from "./ConnectorPages/InfrastructureConnector";
 import IncidentManagementConnector from "./ConnectorPages/IncidentManagementConnector";
 import ServiceCatalogConnector from "./ConnectorPages/ServiceCatalogConnector";
 import { Plus, Search, Settings, BarChart3, Database, FileText, Code, BookOpen, PlayCircle, Users, Bell, LogOut, Globe, GitBranch, Server, Shield, Zap, TrendingUp, AlertTriangle, HardDrive, Eye, EyeOff, Activity, ClipboardList, Layers } from "lucide-react";
+import DemoBreadcrumb from "./DemoBreadcrumb";
 
 interface AdminSidebarProps {
   activeView: string;
@@ -43,7 +44,7 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
       ]
     },
     {
-      category: "Development", 
+      category: "Development",
       connectors: [
         { id: "code", title: "Code", icon: Code },
         { id: "cicd", title: "CI/CD Pipelines", icon: GitBranch },
@@ -88,10 +89,10 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
     <Sidebar>
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-lg">sreai</span>
+          <span className="font-semibold text-lg">YESRE</span>
         </div>
       </SidebarHeader>
-      
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
@@ -99,7 +100,7 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
             <SidebarMenu>
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton 
+                  <SidebarMenuButton
                     onClick={() => {
                       setActiveView(item.id);
                       console.log(`Switching to ${item.title} view`);
@@ -147,9 +148,10 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
 
 interface AdminDashboardProps {
   onLogout?: () => void;
+  onBackToMarketing?: () => void;
 }
 
-export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
+export default function AdminDashboard({ onLogout, onBackToMarketing }: AdminDashboardProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [chatMinimized, setChatMinimized] = useState(false);
   const [isAdminView, setIsAdminView] = useState(true);
@@ -373,9 +375,8 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="font-medium">{user.role}</span>
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    user.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
+                  <span className={`px-2 py-1 rounded-full text-xs ${user.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
                     {user.status}
                   </span>
                   <span className="text-muted-foreground">{user.lastLogin}</span>
@@ -494,11 +495,11 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       environment: "production"
     },
     {
-      id: "2", 
+      id: "2",
       name: "Analytics Dashboard",
       description: "Real-time user analytics and reporting",
       status: "warning",
-      lastUpdated: "5 minutes ago", 
+      lastUpdated: "5 minutes ago",
       connectorsCount: 3,
       environment: "staging"
     },
@@ -534,12 +535,12 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       description: "Source code repository integration with commit tracking"
     },
     {
-      id: "2", 
+      id: "2",
       name: "CloudWatch Logs",
       type: "logs",
       status: "healthy",
       lastSync: "1 minute ago",
-      provider: "AWS CloudWatch", 
+      provider: "AWS CloudWatch",
       description: "Centralized logging and log analysis"
     },
     {
@@ -547,7 +548,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       name: "Datadog Metrics",
       type: "metrics",
       status: "warning",
-      lastSync: "10 minutes ago", 
+      lastSync: "10 minutes ago",
       provider: "Datadog",
       description: "Application performance monitoring and alerting"
     },
@@ -607,8 +608,14 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     <SidebarProvider style={style as React.CSSProperties}>
       <div className="flex h-screen w-full">
         <AdminSidebar activeView={activeView} setActiveView={setActiveView} />
-        
+
         <div className="flex flex-col flex-1">
+          <DemoBreadcrumb 
+            items={[
+              { label: "Administrator", current: true }
+            ]}
+            onBackToMarketing={onBackToMarketing}
+          />
           <header className="flex items-center justify-between p-4 border-b bg-background">
             <div className="flex items-center gap-4">
               <SidebarTrigger data-testid="button-sidebar-toggle" />
@@ -623,7 +630,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                 />
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
                 <div className="flex items-center gap-2 px-2">
@@ -642,7 +649,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   {isAdminView ? 'Admin View' : 'User View'}
                 </span>
               </div>
-              
+
               <Button variant="ghost" size="icon" data-testid="button-notifications">
                 <Bell className="h-4 w-4" />
               </Button>
@@ -652,15 +659,15 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
               </Button>
             </div>
           </header>
-          
+
           <main className="flex-1 overflow-auto p-6">
             {renderMainContent()}
           </main>
         </div>
-        
+
         {/* Chat Interface - Bottom Right Corner */}
         <div className="fixed bottom-4 right-4 z-50">
-          <ChatInterface 
+          <ChatInterface
             isMinimized={chatMinimized}
             onToggleMinimize={() => setChatMinimized(!chatMinimized)}
             userRole="admin"

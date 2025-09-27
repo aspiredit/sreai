@@ -8,12 +8,14 @@ import ApplicationCard, { Application } from "./ApplicationCard";
 import ChatInterface from "./ChatInterface";
 import ThemeToggle from "./ThemeToggle";
 import { Search, Filter, Bell, User, LogOut, RefreshCw, ArrowLeft, Download, FileText, AlertTriangle, CheckCircle, XCircle, Clock, ExternalLink, TrendingUp, TrendingDown, Target, Calendar, Users, DollarSign, Zap, GitBranch, Database, Server, Shield, Eye, BarChart3, Activity, Gauge } from "lucide-react";
+import DemoBreadcrumb from "./DemoBreadcrumb";
 
 interface UserDashboardProps {
   onLogout?: () => void;
+  onBackToMarketing?: () => void;
 }
 
-export default function UserDashboard({ onLogout }: UserDashboardProps) {
+export default function UserDashboard({ onLogout, onBackToMarketing }: UserDashboardProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [environmentFilter, setEnvironmentFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -71,12 +73,18 @@ export default function UserDashboard({ onLogout }: UserDashboardProps) {
 
   return (
     <div className="min-h-screen bg-background">
+      <DemoBreadcrumb 
+        items={[
+          { label: "User Dashboard", current: true }
+        ]}
+        onBackToMarketing={onBackToMarketing}
+      />
       <header className="bg-card border-b border-card-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
-                <h1 className="text-xl font-semibold text-foreground">sreai</h1>
+                <h1 className="text-xl font-semibold text-foreground">YESRE</h1>
               </div>
               
               <div className="relative">
