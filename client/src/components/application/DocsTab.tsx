@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { 
-  BookOpen, 
-  Search, 
-  FileText, 
-  Layers, 
-  Settings, 
+import DocumentRenderer from "./DocumentRenderer";
+import {
+  BookOpen,
+  Search,
+  FileText,
+  Layers,
+  Settings,
   Database,
   GitBranch,
   Code,
@@ -230,41 +231,257 @@ graph TB
       description: "Complete database schema with relationships, indexes, and constraints",
       content: `# Database Schema Design
 
-## Core Tables
+This document outlines the complete database schema design including entity relationships, indexes, and constraints.
+
+## Entity Relationship Diagram
+
+\`\`\`mermaid
+erDiagram
+    USERS {
+        uuid id PK
+        string email UK
+        string password_hash
+        string first_name
+        string last_name
+        enum status
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    APPLICATIONS {
+        uuid id PK
+        string name
+        text description
+        uuid owner_id FK
+        enum status
+        jsonb config
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    METRICS {
+        uuid id PK
+        uuid application_id FK
+        string metric_name
+        float value
+        jsonb tags
+        timestamp timestamp
+        timestamp created_at
+    }
+    
+    INCIDENTS {
+        uuid id PK
+        uuid application_id FK
+        string title
+        text description
+        enum severity
+        enum status
+        uuid assigned_to FK
+        timestamp started_at
+        timestamp resolved_at
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    LOGS {
+        uuid id PK
+        uuid application_id FK
+        enum level
+        text message
+        jsonb metadata
+        string source
+        timestamp timestamp
+        timestamp created_at
+    }
+    
+    USER_ROLES {
+        uuid id PK
+        uuid user_id FK
+        uuid application_id FK
+        enum role
+        timestamp created_at
+    }
+    
+    USERS ||--o{ APPLICATIONS : owns
+    USERS ||--o{ USER_ROLES : has
+    USERS ||--o{ INCIDENTS : assigned_to
+    APPLICATIONS ||--o{ METRICS : generates
+    APPLICATIONS ||--o{ INCIDENTS : has
+    APPLICATIONS ||--o{ LOGS : produces
+    APPLICATIONS ||--o{ USER_ROLES : grants_access
+\`\`\`
+
+## Table Definitions
 
 ### Users Table
-- id (PRIMARY KEY)
-- email (UNIQUE)
-- password_hash
-- created_at
-- updated_at
-- status
+Stores user account information and authentication data.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | UUID | PRIMARY KEY | Unique user identifier |
+| email | VARCHAR(255) | UNIQUE, NOT NULL | User email address |
+| password_hash | VARCHAR(255) | NOT NULL | Bcrypt hashed password |
+| first_name | VARCHAR(100) | NOT NULL | User's first name |
+| last_name | VARCHAR(100) | NOT NULL | User's last name |
+| status | ENUM | NOT NULL | active, inactive, suspended |
+| created_at | TIMESTAMP | NOT NULL | Account creation time |
+| updated_at | TIMESTAMP | NOT NULL | Last update time |
 
 ### Applications Table
-- id (PRIMARY KEY)
-- name
-- description
-- owner_id (FOREIGN KEY → users.id)
-- created_at
-- status
+Stores application metadata and configuration.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | UUID | PRIMARY KEY | Unique application identifier |
+| name | VARCHAR(255) | NOT NULL | Application name |
+| description | TEXT | | Application description |
+| owner_id | UUID | FOREIGN KEY | Reference to users.id |
+| status | ENUM | NOT NULL | active, inactive, maintenance |
+| config | JSONB | | Application configuration |
+| created_at | TIMESTAMP | NOT NULL | Creation time |
+| updated_at | TIMESTAMP | NOT NULL | Last update time |
 
 ### Metrics Table
-- id (PRIMARY KEY)
-- application_id (FOREIGN KEY)
-- metric_name
-- value
-- timestamp
-- tags (JSONB)
+Stores time-series metrics data for applications.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | UUID | PRIMARY KEY | Unique metric record identifier |
+| application_id | UUID | FOREIGN KEY | Reference to applications.id |
+| metric_name | VARCHAR(100) | NOT NULL | Name of the metric |
+| value | DOUBLE PRECISION | NOT NULL | Metric value |
+| tags | JSONB | | Additional metric metadata |
+| timestamp | TIMESTAMP | NOT NULL | Metric timestamp |
+| created_at | TIMESTAMP | NOT NULL | Record creation time |
+
+### Incidents Table
+Stores incident information and tracking.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | UUID | PRIMARY KEY | Unique incident identifier |
+| application_id | UUID | FOREIGN KEY | Reference to applications.id |
+| title | VARCHAR(255) | NOT NULL | Incident title |
+| description | TEXT | | Detailed incident description |
+| severity | ENUM | NOT NULL | critical, high, medium, low |
+| status | ENUM | NOT NULL | open, investigating, resolved |
+| assigned_to | UUID | FOREIGN KEY | Reference to users.id |
+| started_at | TIMESTAMP | NOT NULL | Incident start time |
+| resolved_at | TIMESTAMP | | Incident resolution time |
+| created_at | TIMESTAMP | NOT NULL | Record creation time |
+| updated_at | TIMESTAMP | NOT NULL | Last update time |
 
 ## Indexes
-- users_email_idx ON users(email)
-- metrics_app_time_idx ON metrics(application_id, timestamp)
-- metrics_name_time_idx ON metrics(metric_name, timestamp)
 
-## Constraints
-- All tables have created_at/updated_at timestamps
-- Foreign key constraints with CASCADE DELETE
-- Check constraints for status fields`,
+### Performance Indexes
+\`\`\`sql
+-- Users table indexes
+CREATE UNIQUE INDEX users_email_idx ON users(email);
+CREATE INDEX users_status_idx ON users(status);
+
+-- Applications table indexes
+CREATE INDEX applications_owner_idx ON applications(owner_id);
+CREATE INDEX applications_status_idx ON applications(status);
+
+-- Metrics table indexes (critical for performance)
+CREATE INDEX metrics_app_time_idx ON metrics(application_id, timestamp DESC);
+CREATE INDEX metrics_name_time_idx ON metrics(metric_name, timestamp DESC);
+CREATE INDEX metrics_timestamp_idx ON metrics(timestamp DESC);
+
+-- Incidents table indexes
+CREATE INDEX incidents_app_idx ON incidents(application_id);
+CREATE INDEX incidents_status_idx ON incidents(status);
+CREATE INDEX incidents_severity_idx ON incidents(severity);
+CREATE INDEX incidents_assigned_idx ON incidents(assigned_to);
+
+-- Logs table indexes
+CREATE INDEX logs_app_time_idx ON logs(application_id, timestamp DESC);
+CREATE INDEX logs_level_idx ON logs(level);
+CREATE INDEX logs_timestamp_idx ON logs(timestamp DESC);
+
+-- User roles indexes
+CREATE UNIQUE INDEX user_roles_unique_idx ON user_roles(user_id, application_id);
+\`\`\`
+
+## Constraints and Rules
+
+### Foreign Key Constraints
+\`\`\`sql
+-- Applications reference users
+ALTER TABLE applications 
+ADD CONSTRAINT fk_applications_owner 
+FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Metrics reference applications
+ALTER TABLE metrics 
+ADD CONSTRAINT fk_metrics_application 
+FOREIGN KEY (application_id) REFERENCES applications(id) ON DELETE CASCADE;
+
+-- Incidents reference applications and users
+ALTER TABLE incidents 
+ADD CONSTRAINT fk_incidents_application 
+FOREIGN KEY (application_id) REFERENCES applications(id) ON DELETE CASCADE;
+
+ALTER TABLE incidents 
+ADD CONSTRAINT fk_incidents_assigned_to 
+FOREIGN KEY (assigned_to) REFERENCES users(id) ON DELETE SET NULL;
+\`\`\`
+
+### Check Constraints
+\`\`\`sql
+-- Ensure valid email format
+ALTER TABLE users 
+ADD CONSTRAINT check_email_format 
+CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
+
+-- Ensure positive metric values where applicable
+ALTER TABLE metrics 
+ADD CONSTRAINT check_positive_values 
+CHECK (
+  metric_name NOT IN ('response_time', 'cpu_usage', 'memory_usage') 
+  OR value >= 0
+);
+
+-- Ensure incident resolution time is after start time
+ALTER TABLE incidents 
+ADD CONSTRAINT check_resolution_time 
+CHECK (resolved_at IS NULL OR resolved_at >= started_at);
+\`\`\`
+
+## Data Retention Policies
+
+### Automated Cleanup
+\`\`\`sql
+-- Delete metrics older than 90 days
+DELETE FROM metrics 
+WHERE created_at < NOW() - INTERVAL '90 days';
+
+-- Delete logs older than 30 days
+DELETE FROM logs 
+WHERE created_at < NOW() - INTERVAL '30 days';
+
+-- Archive resolved incidents older than 1 year
+-- (Move to incidents_archive table)
+\`\`\`
+
+## Performance Considerations
+
+### Partitioning Strategy
+- **Metrics table**: Partition by month on timestamp column
+- **Logs table**: Partition by week on timestamp column
+- **Incidents table**: No partitioning needed (smaller dataset)
+
+### Query Optimization
+- Use covering indexes for common query patterns
+- Implement proper connection pooling (max 20 connections)
+- Use read replicas for reporting queries
+- Implement query timeout limits (30 seconds max)
+
+### Monitoring
+- Track slow queries (>1 second)
+- Monitor index usage and effectiveness
+- Alert on connection pool exhaustion
+- Track database size growth trends`,
       lastUpdated: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
       author: "Mike Rodriguez",
       tags: ["database", "schema", "relationships"],
@@ -279,31 +496,286 @@ graph TB
       description: "Network topology, security groups, and connectivity patterns",
       content: `# Network Architecture
 
-## VPC Structure
-- Production VPC: 10.0.0.0/16
-- Staging VPC: 10.1.0.0/16
-- Development VPC: 10.2.0.0/16
+This document describes our complete network architecture including VPC design, security groups, and connectivity patterns.
 
-## Subnets
-### Production VPC
-- Public Subnet A: 10.0.1.0/24 (Load Balancers)
-- Public Subnet B: 10.0.2.0/24 (NAT Gateways)
-- Private Subnet A: 10.0.10.0/24 (App Servers)
-- Private Subnet B: 10.0.11.0/24 (App Servers)
-- Database Subnet A: 10.0.20.0/24 (RDS)
-- Database Subnet B: 10.0.21.0/24 (RDS)
+## Network Topology Diagram
+
+\`\`\`mermaid
+graph TB
+    Internet[Internet] --> IGW[Internet Gateway]
+    
+    subgraph "Production VPC (10.0.0.0/16)"
+        IGW --> ALB[Application Load Balancer]
+        
+        subgraph "Public Subnets"
+            ALB --> PubA[Public Subnet A<br/>10.0.1.0/24]
+            ALB --> PubB[Public Subnet B<br/>10.0.2.0/24]
+            PubA --> NAT1[NAT Gateway 1]
+            PubB --> NAT2[NAT Gateway 2]
+        end
+        
+        subgraph "Private Subnets"
+            NAT1 --> PrivA[Private Subnet A<br/>10.0.10.0/24]
+            NAT2 --> PrivB[Private Subnet B<br/>10.0.11.0/24]
+            
+            PrivA --> App1[App Server 1]
+            PrivA --> App2[App Server 2]
+            PrivB --> App3[App Server 3]
+            PrivB --> App4[App Server 4]
+        end
+        
+        subgraph "Database Subnets"
+            PrivA --> DBA[DB Subnet A<br/>10.0.20.0/24]
+            PrivB --> DBB[DB Subnet B<br/>10.0.21.0/24]
+            
+            DBA --> RDS1[(RDS Primary)]
+            DBB --> RDS2[(RDS Replica)]
+            
+            DBA --> Cache1[Redis Cache 1]
+            DBB --> Cache2[Redis Cache 2]
+        end
+    end
+    
+    subgraph "Staging VPC (10.1.0.0/16)"
+        StagingApp[Staging Environment]
+    end
+    
+    subgraph "Development VPC (10.2.0.0/16)"
+        DevApp[Development Environment]
+    end
+    
+    subgraph "On-Premises"
+        OnPrem[Corporate Network]
+    end
+    
+    ALB --> App1
+    ALB --> App2
+    ALB --> App3
+    ALB --> App4
+    
+    App1 --> RDS1
+    App2 --> RDS1
+    App3 --> RDS1
+    App4 --> RDS1
+    
+    App1 --> Cache1
+    App2 --> Cache1
+    App3 --> Cache2
+    App4 --> Cache2
+    
+    ProdVPC -.-> StagingVPC
+    StagingVPC -.-> DevVPC
+    ProdVPC -.-> OnPrem
+\`\`\`
+
+## VPC Structure
+
+### Production VPC (10.0.0.0/16)
+- **Purpose**: Production workloads
+- **CIDR Block**: 10.0.0.0/16 (65,536 IP addresses)
+- **Availability Zones**: 2 AZs for high availability
+- **DNS Hostnames**: Enabled
+- **DNS Resolution**: Enabled
+
+### Staging VPC (10.1.0.0/16)
+- **Purpose**: Pre-production testing
+- **CIDR Block**: 10.1.0.0/16 (65,536 IP addresses)
+- **Availability Zones**: 2 AZs
+- **Environment**: Mirrors production architecture
+
+### Development VPC (10.2.0.0/16)
+- **Purpose**: Development and testing
+- **CIDR Block**: 10.2.0.0/16 (65,536 IP addresses)
+- **Availability Zones**: 1 AZ (cost optimization)
+- **Resources**: Smaller instance sizes
+
+## Subnet Design
+
+### Public Subnets
+| Subnet | CIDR | AZ | Purpose | Resources |
+|--------|------|----|---------|-----------| 
+| Public A | 10.0.1.0/24 | us-east-1a | Load Balancers | ALB, NAT Gateway |
+| Public B | 10.0.2.0/24 | us-east-1b | Load Balancers | ALB, NAT Gateway |
+
+### Private Subnets
+| Subnet | CIDR | AZ | Purpose | Resources |
+|--------|------|----|---------|-----------| 
+| Private A | 10.0.10.0/24 | us-east-1a | Application Servers | EC2, ECS Tasks |
+| Private B | 10.0.11.0/24 | us-east-1b | Application Servers | EC2, ECS Tasks |
+
+### Database Subnets
+| Subnet | CIDR | AZ | Purpose | Resources |
+|--------|------|----|---------|-----------| 
+| Database A | 10.0.20.0/24 | us-east-1a | Database Services | RDS, ElastiCache |
+| Database B | 10.0.21.0/24 | us-east-1b | Database Services | RDS, ElastiCache |
 
 ## Security Groups
-- ALB-SG: Allow 80/443 from 0.0.0.0/0
-- App-SG: Allow 8080 from ALB-SG
-- DB-SG: Allow 5432 from App-SG
-- Cache-SG: Allow 6379 from App-SG
 
-## Connectivity
-- Internet Gateway for public subnets
-- NAT Gateways for private subnet internet access
-- VPC Peering for cross-environment access
-- VPN Gateway for on-premises connectivity`,
+### Application Load Balancer Security Group (ALB-SG)
+\`\`\`yaml
+Inbound Rules:
+  - Port 80 (HTTP): 0.0.0.0/0
+  - Port 443 (HTTPS): 0.0.0.0/0
+
+Outbound Rules:
+  - Port 8080: App-SG (Application servers)
+  - Port 443: 0.0.0.0/0 (Health checks)
+\`\`\`
+
+### Application Server Security Group (App-SG)
+\`\`\`yaml
+Inbound Rules:
+  - Port 8080: ALB-SG (From load balancer)
+  - Port 22: Bastion-SG (SSH access)
+
+Outbound Rules:
+  - Port 5432: DB-SG (PostgreSQL)
+  - Port 6379: Cache-SG (Redis)
+  - Port 443: 0.0.0.0/0 (External APIs)
+  - Port 80: 0.0.0.0/0 (Package updates)
+\`\`\`
+
+### Database Security Group (DB-SG)
+\`\`\`yaml
+Inbound Rules:
+  - Port 5432: App-SG (PostgreSQL from apps)
+  - Port 5432: Bastion-SG (Admin access)
+
+Outbound Rules:
+  - None (Database doesn't initiate outbound connections)
+\`\`\`
+
+### Cache Security Group (Cache-SG)
+\`\`\`yaml
+Inbound Rules:
+  - Port 6379: App-SG (Redis from apps)
+
+Outbound Rules:
+  - None (Cache doesn't initiate outbound connections)
+\`\`\`
+
+### Bastion Host Security Group (Bastion-SG)
+\`\`\`yaml
+Inbound Rules:
+  - Port 22: Corporate-IP-Range (SSH from office)
+
+Outbound Rules:
+  - Port 22: App-SG (SSH to app servers)
+  - Port 5432: DB-SG (Database admin)
+\`\`\`
+
+## Network Access Control Lists (NACLs)
+
+### Public Subnet NACL
+\`\`\`yaml
+Inbound Rules:
+  - Rule 100: HTTP (80) from 0.0.0.0/0 - ALLOW
+  - Rule 110: HTTPS (443) from 0.0.0.0/0 - ALLOW
+  - Rule 120: Ephemeral ports (1024-65535) from 0.0.0.0/0 - ALLOW
+  - Rule 32767: ALL Traffic - DENY
+
+Outbound Rules:
+  - Rule 100: HTTP (80) to 0.0.0.0/0 - ALLOW
+  - Rule 110: HTTPS (443) to 0.0.0.0/0 - ALLOW
+  - Rule 120: Ephemeral ports (1024-65535) to 0.0.0.0/0 - ALLOW
+  - Rule 32767: ALL Traffic - DENY
+\`\`\`
+
+### Private Subnet NACL
+\`\`\`yaml
+Inbound Rules:
+  - Rule 100: HTTP (80) from 10.0.0.0/16 - ALLOW
+  - Rule 110: HTTPS (443) from 10.0.0.0/16 - ALLOW
+  - Rule 120: App Port (8080) from 10.0.0.0/16 - ALLOW
+  - Rule 130: SSH (22) from 10.0.0.0/16 - ALLOW
+  - Rule 140: Ephemeral ports (1024-65535) from 0.0.0.0/0 - ALLOW
+  - Rule 32767: ALL Traffic - DENY
+
+Outbound Rules:
+  - Rule 100: ALL Traffic to 0.0.0.0/0 - ALLOW
+\`\`\`
+
+## Connectivity Patterns
+
+### Internet Connectivity
+\`\`\`mermaid
+sequenceDiagram
+    participant Client
+    participant IGW as Internet Gateway
+    participant ALB as Load Balancer
+    participant App as App Server
+    participant NAT as NAT Gateway
+    participant API as External API
+    
+    Client->>IGW: HTTPS Request
+    IGW->>ALB: Forward to ALB
+    ALB->>App: Route to App Server
+    App->>NAT: Outbound API Call
+    NAT->>API: External API Request
+    API->>NAT: API Response
+    NAT->>App: Return Response
+    App->>ALB: Application Response
+    ALB->>IGW: Return to Client
+    IGW->>Client: HTTPS Response
+\`\`\`
+
+### VPC Peering
+- **Production ↔ Staging**: For data migration and testing
+- **Staging ↔ Development**: For promoting code changes
+- **Route Tables**: Specific routes for cross-VPC communication
+
+### VPN Connectivity
+- **Site-to-Site VPN**: Corporate office to Production VPC
+- **Client VPN**: Remote developer access to Development VPC
+- **Backup Connection**: Secondary VPN for redundancy
+
+## Route Tables
+
+### Public Route Table
+| Destination | Target | Purpose |
+|-------------|--------|---------|
+| 10.0.0.0/16 | Local | VPC internal traffic |
+| 0.0.0.0/0 | Internet Gateway | Internet access |
+
+### Private Route Table
+| Destination | Target | Purpose |
+|-------------|--------|---------|
+| 10.0.0.0/16 | Local | VPC internal traffic |
+| 0.0.0.0/0 | NAT Gateway | Outbound internet access |
+
+### Database Route Table
+| Destination | Target | Purpose |
+|-------------|--------|---------|
+| 10.0.0.0/16 | Local | VPC internal traffic only |
+
+## Network Monitoring
+
+### VPC Flow Logs
+- **Capture**: All network traffic metadata
+- **Storage**: CloudWatch Logs with 30-day retention
+- **Analysis**: Automated security analysis with GuardDuty
+
+### Network Performance
+- **Latency Monitoring**: Between AZs and to external services
+- **Bandwidth Utilization**: NAT Gateway and Internet Gateway usage
+- **Connection Tracking**: Active connections per security group
+
+### Security Monitoring
+- **Unusual Traffic Patterns**: Automated detection and alerting
+- **Failed Connection Attempts**: Blocked by security groups
+- **DDoS Protection**: AWS Shield Advanced integration
+
+## Disaster Recovery
+
+### Multi-AZ Deployment
+- All critical resources deployed across 2 availability zones
+- Automatic failover for RDS and ElastiCache
+- Load balancer health checks ensure traffic routing
+
+### Cross-Region Backup
+- Database backups replicated to secondary region
+- AMI snapshots stored in multiple regions
+- Infrastructure as Code for rapid environment recreation`,
       lastUpdated: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
       author: "Alex Kim",
       tags: ["network", "vpc", "security-groups"],
@@ -644,6 +1116,41 @@ All errors return consistent format:
       description: "Complete guide for deploying applications to production environment",
       content: `# Production Deployment Guide
 
+This guide provides comprehensive instructions for deploying applications to our production environment using blue-green deployment strategy.
+
+## Deployment Flow Diagram
+
+\`\`\`mermaid
+flowchart TD
+    A[Developer Push] --> B[CI Pipeline Triggered]
+    B --> C{All Tests Pass?}
+    C -->|No| D[Notify Developer]
+    C -->|Yes| E[Build Docker Image]
+    E --> F[Push to Registry]
+    F --> G[Deploy to Staging]
+    G --> H{Staging Tests Pass?}
+    H -->|No| I[Rollback Staging]
+    H -->|Yes| J[Manual Approval Required]
+    J --> K{Approved?}
+    K -->|No| L[Deployment Cancelled]
+    K -->|Yes| M[Deploy to Blue Environment]
+    M --> N[Health Checks]
+    N --> O{Health Checks Pass?}
+    O -->|No| P[Rollback to Green]
+    O -->|Yes| Q[Switch Traffic to Blue]
+    Q --> R[Monitor Metrics]
+    R --> S{Metrics Normal?}
+    S -->|No| T[Emergency Rollback]
+    S -->|Yes| U[Deployment Complete]
+    
+    style A fill:#e1f5fe
+    style U fill:#e8f5e8
+    style D fill:#ffebee
+    style I fill:#ffebee
+    style P fill:#ffebee
+    style T fill:#ffebee
+\`\`\`
+
 ## Prerequisites
 - [ ] Code reviewed and approved
 - [ ] All tests passing
@@ -888,14 +1395,14 @@ export default function DocsTab({ application }: DocsTabProps) {
 
   const filteredDocuments = useMemo(() => {
     return documents.filter(doc => {
-      const matchesSearch = searchQuery === "" || 
+      const matchesSearch = searchQuery === "" ||
         doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      
+
       const matchesCategory = selectedCategory === "all" || doc.category === selectedCategory;
-      
+
       return matchesSearch && matchesCategory;
     });
   }, [documents, searchQuery, selectedCategory]);
@@ -950,9 +1457,9 @@ export default function DocsTab({ application }: DocsTabProps) {
   const DocumentCard = ({ document }: { document: Document }) => {
     const Icon = getCategoryIcon(document.category);
     const StatusIcon = getStatusIcon(document.status);
-    
+
     return (
-      <Card 
+      <Card
         className="hover-lift transition-all duration-200 cursor-pointer h-full"
         onClick={() => handleDocumentClick(document)}
       >
@@ -968,12 +1475,12 @@ export default function DocsTab({ application }: DocsTabProps) {
               </Badge>
             </div>
           </div>
-          
+
           <div className="flex-1">
             <h4 className="font-medium mb-2 line-clamp-2">{document.title}</h4>
             <p className="text-sm text-muted-foreground mb-3 line-clamp-3">{document.description}</p>
           </div>
-          
+
           <div className="space-y-2">
             <div className="flex flex-wrap gap-1">
               {document.tags.slice(0, 3).map(tag => (
@@ -987,7 +1494,7 @@ export default function DocsTab({ application }: DocsTabProps) {
                 </Badge>
               )}
             </div>
-            
+
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 <User className="w-3 h-3" />
@@ -1007,9 +1514,9 @@ export default function DocsTab({ application }: DocsTabProps) {
   const DocumentListItem = ({ document }: { document: Document }) => {
     const Icon = getCategoryIcon(document.category);
     const StatusIcon = getStatusIcon(document.status);
-    
+
     return (
-      <div 
+      <div
         className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
         onClick={() => handleDocumentClick(document)}
       >
@@ -1123,11 +1630,11 @@ export default function DocsTab({ application }: DocsTabProps) {
       {/* Documents */}
       {filteredDocuments.length > 0 ? (
         <div className={
-          viewMode === 'grid' 
-            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' 
+          viewMode === 'grid'
+            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'
             : 'space-y-2'
         }>
-          {filteredDocuments.map((document) => 
+          {filteredDocuments.map((document) =>
             viewMode === 'grid' ? (
               <DocumentCard key={document.id} document={document} />
             ) : (
@@ -1141,7 +1648,7 @@ export default function DocsTab({ application }: DocsTabProps) {
             <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
             <h4 className="text-lg font-semibold mb-2">No Documents Found</h4>
             <p className="text-muted-foreground">
-              {searchQuery ? 
+              {searchQuery ?
                 `No documents match "${searchQuery}". Try adjusting your search terms.` :
                 "No documents available in this category."
               }
@@ -1177,7 +1684,7 @@ export default function DocsTab({ application }: DocsTabProps) {
                 </div>
               </div>
             </DialogHeader>
-            
+
             <div className="space-y-4">
               {/* Document Metadata */}
               <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
@@ -1212,11 +1719,10 @@ export default function DocsTab({ application }: DocsTabProps) {
               </div>
 
               {/* Document Content */}
-              <div className="prose prose-sm max-w-none dark:prose-invert">
-                <div className="bg-muted/30 rounded-lg p-6">
-                  <pre className="whitespace-pre-wrap text-sm">{selectedDocument.content}</pre>
-                </div>
-              </div>
+              <DocumentRenderer
+                content={selectedDocument.content}
+                type={selectedDocument.type === 'diagram' ? 'mixed' : 'markdown'}
+              />
             </div>
           </DialogContent>
         </Dialog>
