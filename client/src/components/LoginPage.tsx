@@ -56,7 +56,7 @@ export default function LoginPage({ onLogin, onBackToMarketing }: LoginPageProps
               Back to Homepage
             </button>
           )}
-          <h1 className="text-2xl font-bold text-foreground">YESRE</h1>
+          <h1 className="text-2xl font-bold text-foreground">RootOps</h1>
           <p className="text-muted-foreground mt-2">Agentic AI for Faster Incident Resolution</p>
         </div>
 

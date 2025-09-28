@@ -73,7 +73,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <h1 className="text-xl font-semibold text-foreground">YESRE</h1>
+              <h1 className="text-xl font-semibold text-foreground">RootOps</h1>
             </div>
             
             <nav className="hidden md:flex items-center gap-8">
@@ -270,7 +270,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                Try YESRE Demo
+                Try RootOps Demo
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Experience autonomous AI agents in action with intelligent incident resolution
@@ -420,7 +420,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
                     {
                       icon: Mail,
                       title: "Email Us",
-                      content: "hello@yesre.com",
+                      content: "hello@rootops.com",
                       subtitle: "We'll respond within 24 hours"
                     },
                     {
@@ -510,7 +510,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
               Trusted by development teams worldwide
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Join thousands of teams using YESRE to accelerate incident resolution
+              Join thousands of teams using RootOps to accelerate incident resolution
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -541,7 +541,7 @@ export default function LandingPage({ onRoleSelect }: LandingPageProps) {
       <footer className="bg-background border-t border-card-border py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-muted-foreground">
-            © 2025 YESRE. Agentic AI for faster incident resolution and autonomous system monitoring.
+            © 2025 RootOps. Agentic AI for faster incident resolution and autonomous system monitoring.
           </p>
         </div>
       </footer>

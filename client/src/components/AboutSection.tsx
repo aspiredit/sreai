@@ -149,7 +149,7 @@ export default function AboutSection() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <Heading as="h2" size="3xl" weight="bold" className="mb-6">
-            About YESRE
+            About RootOps
           </Heading>
           <Text size="xl" color="muted" className="max-w-4xl mx-auto leading-relaxed text-balance">
             We're building the future of incident resolution with autonomous AI agents that understand your systems, 
@@ -192,7 +192,7 @@ export default function AboutSection() {
               Our Values
             </Heading>
             <Text size="lg" color="muted" className="max-w-2xl mx-auto">
-              The principles that guide everything we do at YESRE
+              The principles that guide everything we do at RootOps
             </Text>
           </div>
           
@@ -374,7 +374,7 @@ export default function AboutSection() {
               ))}
             </div>
             <Text size="2xl" weight="medium" className="mb-6 italic text-balance">
-              "YESRE has transformed how our team handles incidents. What used to take hours now takes minutes, 
+              "RootOps has transformed how our team handles incidents. What used to take hours now takes minutes,
               and our engineers can focus on building instead of firefighting."
             </Text>
             <div className="flex items-center justify-center gap-4">

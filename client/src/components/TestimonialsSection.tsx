@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
   const testimonials: Testimonial[] = [
     {
       id: "1",
-      quote: "YESRE has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
+      quote: "RootOps has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
       author: "David Martinez",
       title: "VP of Engineering",
       company: "TechCorp",
@@ -88,7 +88,7 @@ export default function TestimonialsSection() {
     },
     {
       id: "3",
-      quote: "YESRE's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
+      quote: "RootOps's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
       author: "Michael Rodriguez",
       title: "CTO",
       company: "StartupFlow",
@@ -177,7 +177,7 @@ export default function TestimonialsSection() {
             Trusted by Engineering Teams Worldwide
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
-            See how teams like yours are transforming their incident resolution with YESRE's AI-powered platform
+            See how teams like yours are transforming their incident resolution with RootOps's AI-powered platform
           </p>
         </div>
 
@@ -380,7 +380,7 @@ export default function TestimonialsSection() {
               Join thousands of satisfied customers
             </h3>
             <p className="text-lg text-muted-foreground mb-6">
-              Start your free trial today and see why engineering teams choose YESRE for incident resolution
+              Start your free trial today and see why engineering teams choose RootOps for incident resolution
             </p>
             <Button
               size="lg"

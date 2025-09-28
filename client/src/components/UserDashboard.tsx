@@ -85,7 +85,7 @@ export default function UserDashboard({ onLogout, onBackToMarketing }: UserDashb
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
-                <h1 className="text-xl font-semibold text-foreground">YESRE</h1>
+                <h1 className="text-xl font-semibold text-foreground">RootOps</h1>
               </div>
               
               <div className="relative">

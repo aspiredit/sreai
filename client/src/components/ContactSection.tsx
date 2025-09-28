@@ -61,11 +61,11 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: "Email Us",
-      content: "hello@yesre.com",
+      content: "hello@rootops.com",
       subtitle: "We'll respond within 24 hours",
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
-      action: "mailto:hello@yesre.com"
+      action: "mailto:hello@rootops.com"
     },
     {
       icon: Phone,
@@ -121,19 +121,19 @@ export default function ContactSection() {
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com/company/yesre",
+      url: "https://linkedin.com/company/rootops",
       color: "text-blue-600"
     },
     {
       icon: Twitter,
       name: "Twitter",
-      url: "https://twitter.com/yesre",
+      url: "https://twitter.com/rootops",
       color: "text-sky-500"
     },
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com/yesre",
+      url: "https://github.com/rootops",
       color: "text-gray-700"
     }
   ];
