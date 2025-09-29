@@ -68,7 +68,7 @@ export default function PricingSection() {
         "Basic incident tracking",
         "Community forum access"
       ],
-      cta: "Start Free Trial",
+      cta: "Contact Us for Free Trial",
       color: "blue"
     },
     {
@@ -89,7 +89,7 @@ export default function PricingSection() {
         "SLA monitoring",
         "Custom dashboards"
       ],
-      cta: "Start Free Trial",
+      cta: "Contact Us for Free Trial",
       color: "purple"
     },
     {

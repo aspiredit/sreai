@@ -124,7 +124,7 @@ export default function LoginPage({ onLogin, onBackToMarketing }: LoginPageProps
         </Card>
 
         {/* Demo Credentials */}
-        <Card className="mt-6 bg-muted/30 border-primary/20">
+        {/* <Card className="mt-6 bg-muted/30 border-primary/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-primary">
               <Info className="w-5 h-5" />
@@ -189,7 +189,7 @@ export default function LoginPage({ onLogin, onBackToMarketing }: LoginPageProps
               </p>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );
