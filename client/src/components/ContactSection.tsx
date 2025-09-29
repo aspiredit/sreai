@@ -61,17 +61,17 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: "Email Us",
-      content: "hello@rootops.com",
+      content: "hello@yesre.ai",
       subtitle: "We'll respond within 24 hours",
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
-      action: "mailto:hello@rootops.com"
+      action: "mailto:hello@yesre.ai"
     },
     {
       icon: Phone,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
-      subtitle: "Mon-Fri, 9am-6pm EST",
+      content: "+1 (781) 504-2520",
+      subtitle: "Mon-Fri, 9am-6pm CST",
       color: "text-green-500",
       bgColor: "bg-green-500/10",
       action: "tel:+15551234567"
@@ -98,21 +98,21 @@ export default function ContactSection() {
 
   const officeLocations = [
     {
-      city: "San Francisco",
-      address: "123 Tech Street, Suite 400",
-      zipCode: "San Francisco, CA 94105",
-      timezone: "PST"
+      city: "Sugar Land",
+      address: "PO Box 16402",
+      zipCode: "Sugar Land, TX 77479",
+      timezone: "CST"
     },
     {
-      city: "New York",
+      city: "Phoenix",
       address: "456 Innovation Ave, Floor 12",
-      zipCode: "New York, NY 10001",
-      timezone: "EST"
+      zipCode: "Phoenix, AZ 10001",
+      timezone: "MST"
     },
     {
-      city: "London",
+      city: "Bengaluru",
       address: "789 Digital Lane, Level 8",
-      zipCode: "London, UK EC2A 4DP",
+      zipCode: "Bengaluru, IN 600042",
       timezone: "GMT"
     }
   ];
@@ -121,19 +121,19 @@ export default function ContactSection() {
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com/company/rootops",
+      url: "https://linkedin.com/company/YESRE",
       color: "text-blue-600"
     },
     {
       icon: Twitter,
       name: "Twitter",
-      url: "https://twitter.com/rootops",
+      url: "https://twitter.com/YESRE",
       color: "text-sky-500"
     },
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com/rootops",
+      url: "https://github.com/YESRE",
       color: "text-gray-700"
     }
   ];

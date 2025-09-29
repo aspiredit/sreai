@@ -100,7 +100,7 @@ export default function MarketingHomepage({ onDemoAccess }: MarketingHomepagePro
         <footer className="bg-card border-t border-border py-12">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <p className="text-muted-foreground">
-              © 2025 RootOps. Agentic AI for faster incident resolution and autonomous system monitoring.
+              © 2025 YESRE. Agentic AI for faster incident resolution and autonomous system monitoring.
             </p>
           </div>
         </footer>

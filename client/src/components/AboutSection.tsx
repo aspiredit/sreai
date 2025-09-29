@@ -26,8 +26,8 @@ export default function AboutSection() {
   const { elementRef: teamRef, visibleItems: teamVisible } = useStaggeredAnimation(4, 100);
   
   // Counter animations for stats
-  const { elementRef: stat1Ref, count: count1 } = useCounterAnimation(2000, 2000, '+');
-  const { elementRef: stat2Ref, count: count2 } = useCounterAnimation(50, 2000, '+');
+  const { elementRef: stat1Ref, count: count1 } = useCounterAnimation(5, 1000, '+');
+  const { elementRef: stat2Ref, count: count2 } = useCounterAnimation(3, 1000, '+');
   const { elementRef: stat3Ref, count: count3 } = useCounterAnimation(99.9, 2000, '%');
   const { elementRef: stat4Ref, count: count4 } = useCounterAnimation(2, 2000, 'min');
 
@@ -54,72 +54,39 @@ export default function AboutSection() {
 
   const teamMembers = [
     {
-      name: "Sarah Chen",
+      name: "AJ",
       role: "CEO & Co-Founder",
-      bio: "Former SRE at Google, 10+ years in distributed systems",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
+      bio: "Innovator, Enterprise Architect, 20+ years of experience",
+      avatar: ""
     },
     {
-      name: "Marcus Rodriguez",
+      name: "KD",
       role: "CTO & Co-Founder", 
-      bio: "AI/ML expert, former Principal Engineer at Netflix",
-      avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
-    },
-    {
-      name: "Dr. Aisha Patel",
-      role: "Head of AI Research",
-      bio: "PhD in Machine Learning, published researcher in autonomous systems",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
-    },
-    {
-      name: "James Kim",
-      role: "VP of Engineering",
-      bio: "15+ years building scalable infrastructure at Uber and Airbnb",
-      avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face&auto=format&q=80"
+      bio: "AI/ML expert, Principal SRE with 20+ years of experience",
+      avatar: ""
     }
   ];
 
   const milestones = [
     {
-      year: "2023",
+      year: "2024",
       title: "Company Founded",
       description: "Started with a vision to revolutionize incident response"
-    },
-    {
-      year: "2024",
-      title: "Series A Funding",
-      description: "$15M raised from leading VCs to accelerate AI development"
-    },
-    {
-      year: "2024",
-      title: "Enterprise Launch",
-      description: "First enterprise customers onboarded with 99.9% uptime"
-    },
-    {
-      year: "2025",
-      title: "Global Expansion",
-      description: "Serving 2,000+ engineering teams across 50+ countries"
     }
   ];
 
   const trustSignals = [
     {
       icon: Shield,
-      title: "SOC 2 Type II Certified",
+      title: "Enterprise Grade Security",
       description: "Enterprise-grade security and compliance",
       color: "emerald" as keyof typeof colors.feature
     },
     {
-      icon: Award,
-      title: "ISO 27001 Compliant",
-      description: "International security management standards",
-      color: "amber" as keyof typeof colors.feature
-    },
-    {
       icon: Building,
-      title: "GDPR Compliant",
-      description: "Full data privacy and protection compliance",
-      color: "indigo" as keyof typeof colors.feature
+      title: "Fed RAMP Compliant",
+      description: "FedRAMP Compliant ",
+      color: "amber" as keyof typeof colors.feature
     },
     {
       icon: Globe,
@@ -130,10 +97,10 @@ export default function AboutSection() {
   ];
 
   const stats = [
-    { number: "2,000+", label: "Engineering Teams", icon: Users, color: "blue" as keyof typeof colors.feature },
-    { number: "50+", label: "Countries Served", icon: Globe, color: "green" as keyof typeof colors.feature },
+    { number: "5+", label: "Engineering Teams", icon: Users, color: "blue" as keyof typeof colors.feature },
+    { number: "3+", label: "Countries Served", icon: Globe, color: "green" as keyof typeof colors.feature },
     { number: "99.9%", label: "Uptime Guarantee", icon: TrendingUp, color: "purple" as keyof typeof colors.feature },
-    { number: "<2min", label: "Average Setup", icon: Clock, color: "orange" as keyof typeof colors.feature }
+    { number: "<5min", label: "Average Setup", icon: Clock, color: "orange" as keyof typeof colors.feature }
   ];
 
   return (
@@ -149,7 +116,7 @@ export default function AboutSection() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <Heading as="h2" size="3xl" weight="bold" className="mb-6">
-            About RootOps
+            About YESRE
           </Heading>
           <Text size="xl" color="muted" className="max-w-4xl mx-auto leading-relaxed text-balance">
             We're building the future of incident resolution with autonomous AI agents that understand your systems, 
@@ -192,7 +159,7 @@ export default function AboutSection() {
               Our Values
             </Heading>
             <Text size="lg" color="muted" className="max-w-2xl mx-auto">
-              The principles that guide everything we do at RootOps
+              The principles that guide everything we do at YESRE
             </Text>
           </div>
           
@@ -229,7 +196,7 @@ export default function AboutSection() {
             </Text>
           </div>
           
-          <Grid cols={4} gap="lg" ref={teamRef}>
+          <Grid cols={2} gap="lg" ref={teamRef}>
             {teamMembers.map((member, index) => (
               <div 
                 key={index} 
@@ -340,7 +307,7 @@ export default function AboutSection() {
             </Text>
           </div>
           
-          <Grid cols={4} gap="md">
+          <Grid cols={3} gap="md">
             {trustSignals.map((signal, index) => (
               <FeatureCard
                 key={index}
@@ -374,7 +341,7 @@ export default function AboutSection() {
               ))}
             </div>
             <Text size="2xl" weight="medium" className="mb-6 italic text-balance">
-              "RootOps has transformed how our team handles incidents. What used to take hours now takes minutes,
+              "YESRE has transformed how our team handles incidents. What used to take hours now takes minutes,
               and our engineers can focus on building instead of firefighting."
             </Text>
             <div className="flex items-center justify-center gap-4">
@@ -382,11 +349,11 @@ export default function AboutSection() {
                 className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-primary"
                 style={{ backgroundColor: `${colors.primary[500]}20` }}
               >
-                DM
+                AS
               </div>
               <div className="text-left">
-                <Text weight="semibold">David Martinez</Text>
-                <Text color="muted">VP of Engineering, TechCorp</Text>
+                <Text weight="semibold">Anil Srikantham</Text>
+                <Text color="muted">CEO, CluCloud</Text>
               </div>
             </div>
           </div>

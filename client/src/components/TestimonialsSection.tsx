@@ -62,10 +62,10 @@ export default function TestimonialsSection() {
   const testimonials: Testimonial[] = [
     {
       id: "1",
-      quote: "RootOps has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
-      author: "David Martinez",
-      title: "VP of Engineering",
-      company: "TechCorp",
+      quote: "YESRE has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
+      author: "Anil Srikantham",
+      title: "CEO & Founder",
+      company: "CluCloud",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       metrics: {
@@ -76,9 +76,9 @@ export default function TestimonialsSection() {
     {
       id: "2", 
       quote: "The autonomous AI agents have been a game-changer for our SRE team. We've reduced our mean time to resolution by 80% and our on-call stress has practically disappeared. Best investment we've made.",
-      author: "Sarah Chen",
-      title: "Senior SRE Manager",
-      company: "CloudScale Inc",
+      author: "Rayulu V",
+      title: "CTO & Co-Founder",
+      company: "Sanketika Technologies",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       metrics: {
@@ -88,10 +88,10 @@ export default function TestimonialsSection() {
     },
     {
       id: "3",
-      quote: "RootOps's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
-      author: "Michael Rodriguez",
+      quote: "YESRE's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
+      author: "Kranthi D",
       title: "CTO",
-      company: "StartupFlow",
+      company: "myabsolutefaith.com",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       metrics: {
@@ -102,9 +102,9 @@ export default function TestimonialsSection() {
     {
       id: "4",
       quote: "Implementation was seamless and the ROI was immediate. Our team productivity increased dramatically once we stopped spending time on manual incident investigation. The insights are phenomenal.",
-      author: "Jennifer Kim",
+      author: "Raja Gunasekhar",
       title: "Head of Platform",
-      company: "DataFlow Systems",
+      company: "High Q Technologies",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face&auto=format&q=80",
       rating: 5,
       metrics: {
@@ -115,10 +115,10 @@ export default function TestimonialsSection() {
   ];
 
   const companyLogos = [
-    { name: "TechCorp", logo: "TC" },
-    { name: "CloudScale", logo: "CS" },
-    { name: "StartupFlow", logo: "SF" },
-    { name: "DataFlow", logo: "DF" },
+    { name: "CluCloud", logo: "CC" },
+    { name: "Sanketika Technologies", logo: "ST" },
+    { name: "myabsolutefaith.com", logo: "AF" },
+    { name: "High Q Technologies", logo: "HQ" },
     { name: "InnovateLab", logo: "IL" },
     { name: "ScaleUp", logo: "SU" },
     { name: "DevOps Pro", logo: "DP" },
@@ -128,7 +128,7 @@ export default function TestimonialsSection() {
   const socialProofMetrics = [
     {
       icon: Users,
-      value: "2,000+",
+      value: "5+",
       label: "Engineering Teams",
       color: "text-blue-500",
       bgColor: "bg-blue-500/10"
@@ -177,7 +177,7 @@ export default function TestimonialsSection() {
             Trusted by Engineering Teams Worldwide
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
-            See how teams like yours are transforming their incident resolution with RootOps's AI-powered platform
+            See how teams like yours are transforming their incident resolution with YESRE's AI-powered platform
           </p>
         </div>
 
@@ -380,7 +380,7 @@ export default function TestimonialsSection() {
               Join thousands of satisfied customers
             </h3>
             <p className="text-lg text-muted-foreground mb-6">
-              Start your free trial today and see why engineering teams choose RootOps for incident resolution
+              Start your free trial today and see why engineering teams choose YESRE for incident resolution
             </p>
             <Button
               size="lg"

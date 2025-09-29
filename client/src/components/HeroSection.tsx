@@ -319,7 +319,7 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                   className="w-2 h-2 rounded-full animate-pulse"
                   style={{ backgroundColor: colors.feature.blue }}
                 ></div>
-                <Text size="sm" weight="medium" color="muted">2,000+ Engineering Teams</Text>
+                <Text size="sm" weight="medium" color="muted">5+ Engineering Teams</Text>
               </div>
               <div className="flex items-center gap-2">
                 <div 
@@ -333,7 +333,7 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                   className="w-2 h-2 rounded-full animate-pulse"
                   style={{ backgroundColor: colors.feature.amber }}
                 ></div>
-                <Text size="sm" weight="medium" color="muted">&lt; 2min Average Setup</Text>
+                <Text size="sm" weight="medium" color="muted">&lt; 5min Average Setup</Text>
               </div>
             </div>
           </div>

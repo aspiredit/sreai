@@ -92,7 +92,7 @@ export default function Navigation({
                 className="text-xl font-bold text-foreground hover:text-primary transition-colors"
                 data-testid="nav-logo"
               >
-                RootOps
+                YESRE
               </button>
             </div>
 

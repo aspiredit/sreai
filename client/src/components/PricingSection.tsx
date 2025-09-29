@@ -451,7 +451,7 @@ export default function PricingSection() {
               Ready to transform your incident resolution?
             </Heading>
             <Text size="lg" color="muted" className="mb-6">
-              Join thousands of engineering teams using RootOps to reduce downtime and accelerate problem resolution.
+              Join thousands of engineering teams using YESRE to reduce downtime and accelerate problem resolution.
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

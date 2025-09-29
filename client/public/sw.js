@@ -1,7 +1,7 @@
 // Service Worker for caching and performance optimization
-const CACHE_NAME = 'rootops-marketing-v1';
-const STATIC_CACHE_NAME = 'rootops-static-v1';
-const DYNAMIC_CACHE_NAME = 'rootops-dynamic-v1';
+const CACHE_NAME = 'YESRE-marketing-v1';
+const STATIC_CACHE_NAME = 'YESRE-static-v1';
+const DYNAMIC_CACHE_NAME = 'YESRE-dynamic-v1';
 
 // Detect if we're on GitHub Pages
 const isGitHubPages = self.location.hostname.includes('github.io') ||

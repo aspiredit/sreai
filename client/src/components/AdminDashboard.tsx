@@ -89,7 +89,7 @@ function AdminSidebar({ activeView, setActiveView }: AdminSidebarProps) {
     <Sidebar>
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-lg">RootOps</span>
+          <span className="font-semibold text-lg">YESRE</span>
         </div>
       </SidebarHeader>
 

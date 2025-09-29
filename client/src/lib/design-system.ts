@@ -1,5 +1,5 @@
 /**
- * RootOps Design System
+ * YESRE Design System
  * Comprehensive design tokens and utilities for consistent styling
  */
 

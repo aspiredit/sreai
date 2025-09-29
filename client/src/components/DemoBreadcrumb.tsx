@@ -25,7 +25,7 @@ export default function DemoBreadcrumb({
         <nav className="flex items-center space-x-2 text-sm">
           <div className="flex items-center space-x-2">
             <Home className="w-4 h-4 text-muted-foreground" />
-            <span className="text-muted-foreground">RootOps Demo</span>
+            <span className="text-muted-foreground">YESRE Demo</span>
           </div>
           
           {items.map((item, index) => (

@@ -4,7 +4,7 @@
 
 ### 1. **Contact Methods Grid**
 - ✅ Four contact methods with colorful icons:
-  - 🔵 Email Us (Blue) - hello@rootops.com
+  - 🔵 Email Us (Blue) - hello@yesre.ai
   - 🟢 Call Us (Green) - +1 (555) 123-4567
   - 🟣 Live Chat (Purple) - 24/7 availability
   - 🟠 Schedule Demo (Orange) - 30-minute consultation
@@ -128,7 +128,7 @@
 - **Inquiry Type**: Categorization for routing
 
 ## Contact Information:
-### Email: hello@rootops.com
+### Email: hello@yesre.ai
 - 24-hour response guarantee
 - Professional email address
 
