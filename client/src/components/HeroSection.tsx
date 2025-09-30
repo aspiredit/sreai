@@ -252,44 +252,33 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
               <div className="relative">
-                <div 
-                  className="aspect-square bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20"
+                <div
+                  className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 overflow-hidden"
                   style={{
                     borderRadius: borderRadius['2xl'],
-                    padding: spacing[8]
                   }}
                 >
-                  <div 
-                    className="w-full h-full bg-gradient-to-br from-background to-muted border border-border flex items-center justify-center"
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
                     style={{ borderRadius: borderRadius.xl }}
                   >
-                    <div className="text-center space-y-4">
-                      <div 
-                        className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto"
-                        style={{ backgroundColor: `${colors.primary[500]}20` }}
-                      >
-                        <Zap className="w-8 h-8 text-primary" />
-                      </div>
-                      <div className="space-y-2">
-                        <Heading as="h3" size="lg" weight="semibold">
-                          AI-Powered Diagnostics
-                        </Heading>
-                        <Text size="sm" color="muted">
-                          Real-time system analysis
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
+                    <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
-                
+
                 {/* Floating Elements */}
-                <div 
+                <div
                   className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center animate-bounce"
                   style={{ backgroundColor: `${colors.feature.emerald}20` }}
                 >
                   <CheckCircle className="w-6 h-6" style={{ color: colors.feature.emerald }} />
                 </div>
-                <div 
+                <div
                   className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center animate-pulse"
                   style={{ backgroundColor: `${colors.feature.cyan}20` }}
                 >
