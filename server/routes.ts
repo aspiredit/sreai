@@ -8,8 +8,13 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form endpoint
   app.post("/api/contact", async (req, res) => {
+    // Set proper JSON response headers
+    res.setHeader('Content-Type', 'application/json');
+
     try {
       const { name, email, company, message, inquiryType } = req.body;
+
+      console.log('Contact form submission received:', { name, email, company, inquiryType });
 
       // Validate required fields
       if (!name || !email || !message) {
@@ -37,8 +42,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (process.env.RESEND_API_KEY) {
         try {
           await resend.emails.send({
-            from: "YESRE Contact Form <contact@yourdomain.com>", // Replace with your domain
-            to: ["your-email@yourdomain.com"], // Replace with your email
+            from: "YESRE Contact Form <contact@yesre.ai>", // Using your verified domain
+            to: ["krand03@gmail.com"], // Your Gmail for receiving emails
             subject: `New Contact Form Submission - ${inquiryType || 'General'}`,
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -87,9 +92,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     } catch (error) {
       console.error("Contact form error:", error);
-      res.status(500).json({
-        error: "Failed to send message. Please try again later."
-      });
+
+      // Ensure we always send JSON response
+      if (!res.headersSent) {
+        res.status(500).json({
+          error: "Failed to send message. Please try again later.",
+          details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+      }
     }
   });
 
