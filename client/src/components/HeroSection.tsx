@@ -44,129 +44,110 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
   ];
 
   return (
-    <ParallaxBackground 
-      speed={0.3}
-      className="pt-16 min-h-screen flex items-center justify-center"
-    >
-      <Section 
-        id="home" 
+    <>
+      <Section
+        id="home"
         ref={heroRef as React.RefObject<HTMLElement>}
-        className="relative w-full min-h-screen flex items-center"
-        size="xl"
+        className="relative w-full min-h-screen overflow-hidden"
+        size="full"
       >
-        <Container size="xl" className="relative z-10">
-          {/* Top Section - Header Content */}
-          <div className={`text-center space-y-6 md:space-y-8 mb-12 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            {/* Badge */}
-            <div className="flex justify-center">
-              <Badge variant="primary" size="md" className="inline-flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                Powered by Advanced AI
-              </Badge>
-            </div>
-
-            {/* Main Headline */}
-            <Heading
-              as="h1"
-              size="4xl"
-              weight="bold"
-              className="leading-tight max-w-4xl mx-auto"
-            >
-              Agentic AI for
-              <br></br>
-              <span className="text-gradient">
-                Faster Incident Resolution
-              </span>
-            </Heading>
-
-            {/* Subheadline */}
-            <Text
-              size="xl"
-              color="muted"
-              className="max-w-4xl mx-auto leading-relaxed text-balance"
-            >
-              Autonomous AI agents accelerate incident resolution with intelligent root cause analysis,
-              automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
-            </Text>
-          </div>
-
-          {/* Center Section - Large Video */}
-          <div className={`relative mb-16 transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative max-w-5xl mx-auto">
-              <div
-                className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 overflow-hidden"
-                style={{
-                  borderRadius: borderRadius['2xl'],
-                }}
-              >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                  style={{ borderRadius: borderRadius.xl }}
-                >
-                  <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-
-              {/* Floating Elements */}
-              <div
-                className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center animate-bounce"
-                style={{ backgroundColor: `${colors.feature.emerald}20` }}
-              >
-                <CheckCircle className="w-6 h-6" style={{ color: colors.feature.emerald }} />
-              </div>
-              <div
-                className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center animate-pulse"
-                style={{ backgroundColor: `${colors.feature.cyan}20` }}
-              >
-                <BarChart3 className="w-6 h-6" style={{ color: colors.feature.cyan }} />
-              </div>
-            </div>
-          </div>
-
-          {/* Key Features - Horizontal Row */}
-          <div
-            ref={featuresRef}
-            className={`flex ${isMobile ? 'flex-col gap-6' : 'flex-row justify-center gap-12'} items-center mb-16 transition-all duration-1000 delay-500 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
           >
-            {keyFeatures.map((feature, index) => (
-              <div
-                key={index}
-                className={`flex flex-col items-center text-center space-y-3 transition-all duration-800 ${
-                  visibleItems[index]
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-4'
-                }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${colors.feature[feature.color]}20` }}
-                >
-                  <feature.icon
-                    className="w-8 h-8"
-                    style={{ color: colors.feature[feature.color] }}
-                  />
-                </div>
-                <Text size="lg" weight="semibold" className="text-foreground">
-                  {feature.text}
-                </Text>
-              </div>
-            ))}
-          </div>
+            <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/50 dark:bg-black/70"></div>
+        </div>
 
-          {/* Bottom Section - Role Selection and CTAs */}
-          <div className="text-center space-y-8">
+        {/* Content Overlay */}
+        <div className="relative z-10 min-h-screen flex items-center justify-center pt-16">
+          <Container size="lg" className="text-center">
+            {/* Hero Content */}
+            <div className={`space-y-6 md:space-y-8 mb-16 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              {/* Badge */}
+              <div className="flex justify-center">
+                <Badge variant="primary" size="md" className="inline-flex items-center gap-2 bg-primary/90 backdrop-blur-sm">
+                  <Zap className="w-4 h-4" />
+                  Powered by Advanced AI
+                </Badge>
+              </div>
+
+              {/* Main Headline */}
+              <Heading
+                as="h1"
+                size="4xl"
+                weight="bold"
+                className="leading-tight max-w-4xl mx-auto text-white drop-shadow-lg"
+              >
+                Agentic AI for
+                <br></br>
+                <span className="text-gradient bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  Faster Incident Resolution
+                </span>
+              </Heading>
+
+              {/* Subheadline */}
+              <Text
+                size="xl"
+                className="max-w-4xl mx-auto leading-relaxed text-balance text-gray-100 drop-shadow-md"
+              >
+                Autonomous AI agents accelerate incident resolution with intelligent root cause analysis,
+                automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
+              </Text>
+            </div>
+
+          </Container>
+        </div>
+      </Section>
+
+      {/* Features and CTA Section - Outside video background */}
+      <Section className="relative bg-background py-16 md:py-24" size="xl">
+      <Container size="lg" className="text-center">
+        {/* Key Features - Horizontal Row */}
+        <div
+          ref={featuresRef}
+          className={`flex ${isMobile ? 'flex-col gap-6' : 'flex-row justify-center gap-12'} items-center mb-16 transition-all duration-1000 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {keyFeatures.map((feature, index) => (
+            <div
+              key={index}
+              className={`flex flex-col items-center text-center space-y-3 transition-all duration-800 ${
+                visibleItems[index]
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
+            >
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: `${colors.feature[feature.color]}20` }}
+              >
+                <feature.icon
+                  className="w-8 h-8"
+                  style={{ color: colors.feature[feature.color] }}
+                />
+              </div>
+              <Text size="lg" weight="semibold" className="text-foreground">
+                {feature.text}
+              </Text>
+            </div>
+          ))}
+        </div>
+
+        {/* Role Selection and CTAs */}
+        <div className="space-y-8">
             {/* Role Selection */}
             <div className="space-y-6">
               <Text size="base" weight="medium" color="muted">
@@ -294,48 +275,48 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                   </Text>
                 </div>
               )}
-            </div>
+        </div>
 
-          {/* Social Proof */}
-          <div 
-            className={`transition-all duration-1000 delay-500 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ marginTop: spacing[16] }}
-          >
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-              <div className="flex items-center gap-2">
-                <div 
-                  className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: colors.feature.emerald }}
-                ></div>
-                <Text size="sm" weight="medium" color="muted">99.9% Uptime Guaranteed</Text>
-              </div>
-              <div className="flex items-center gap-2">
-                <div 
-                  className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: colors.feature.blue }}
-                ></div>
-                <Text size="sm" weight="medium" color="muted">5+ Engineering Teams</Text>
-              </div>
-              <div className="flex items-center gap-2">
-                <div 
-                  className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: colors.feature.violet }}
-                ></div>
-                <Text size="sm" weight="medium" color="muted">24/7 AI-Powered Support</Text>
-              </div>
-              <div className="flex items-center gap-2">
-                <div 
-                  className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: colors.feature.amber }}
-                ></div>
-                <Text size="sm" weight="medium" color="muted">&lt; 5min Average Setup</Text>
-              </div>
+        {/* Social Proof */}
+        <div
+          className={`transition-all duration-1000 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+          style={{ marginTop: spacing[16] }}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <div className="flex items-center gap-2">
+              <div
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: colors.feature.emerald }}
+              ></div>
+              <Text size="sm" weight="medium" color="muted">99.9% Uptime Guaranteed</Text>
+            </div>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: colors.feature.blue }}
+              ></div>
+              <Text size="sm" weight="medium" color="muted">5+ Engineering Teams</Text>
+            </div>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: colors.feature.violet }}
+              ></div>
+              <Text size="sm" weight="medium" color="muted">24/7 AI-Powered Support</Text>
+            </div>
+            <div className="flex items-center gap-2">
+              <div
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: colors.feature.amber }}
+              ></div>
+              <Text size="sm" weight="medium" color="muted">&lt; 5min Average Setup</Text>
             </div>
           </div>
-        </Container>
-      </Section>
-    </ParallaxBackground>
+        </div>
+      </Container>
+    </Section>
+    </>
   );
 }
