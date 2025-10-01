@@ -6,8 +6,19 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  console.log('Registering API routes...');
+
+  // Test endpoint
+  app.get("/api/test", (req, res) => {
+    console.log('GET /api/test endpoint hit!');
+    res.json({ message: "API is working!", timestamp: new Date().toISOString() });
+  });
+
   // Contact form endpoint
   app.post("/api/contact", async (req, res) => {
+    console.log('POST /api/contact endpoint hit!');
+    console.log('Request body:', req.body);
+
     // Set proper JSON response headers
     res.setHeader('Content-Type', 'application/json');
 
