@@ -92,7 +92,11 @@ export default function Navigation({
                 className="flex items-center gap-3 text-xl font-bold text-foreground hover:text-primary transition-colors"
                 data-testid="nav-logo"
               >
-                <img src="https://yesre-ai-website.s3.amazonaws.com/sreai-logo.png" alt="SREAI Logo" className="w-8 h-8 object-contain" />
+                <img
+                  src="https://yesre-ai-website.s3.amazonaws.com/sreai-logo.png"
+                  alt="SREAI Logo"
+                  className="w-8 h-8 object-contain dark:invert dark:brightness-0 dark:contrast-100"
+                />
                 YESRE
               </button>
             </div>
