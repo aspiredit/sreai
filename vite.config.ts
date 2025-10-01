@@ -9,10 +9,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Determine if we're building for GitHub Pages
 const isGitHubPages = process.env.GITHUB_PAGES === 'true';
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'sreai';
+// Use root path when custom domain is configured
+const hasCustomDomain = process.env.GITHUB_PAGES_DOMAIN || false;
 
 export default defineConfig(({ mode }) => ({
   // Set base URL for GitHub Pages deployment
-  base: isGitHubPages ? `/${repoName}/` : mode === "demo" ? "/demo/" : "/",
+  // Use root path for custom domain (yesre.ai), otherwise use repo name
+  base: isGitHubPages && !hasCustomDomain ? `/${repoName}/` : mode === "demo" ? "/demo/" : "/",
   define: {
     // Pass environment variables to client
     'import.meta.env.VITE_GITHUB_PAGES': JSON.stringify(isGitHubPages ? 'true' : 'false'),
