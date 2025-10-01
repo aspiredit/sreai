@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Play, CheckCircle, Zap, Shield, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useResponsive } from "@/hooks/use-responsive";
@@ -15,6 +15,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionProps) {
   const [selectedRole, setSelectedRole] = useState<"admin" | "user" | null>(null);
+  const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
   const { isMobile } = useResponsive();
   const { elementRef: heroRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   const { elementRef: featuresRef, visibleItems } = useStaggeredAnimation(3, 200);
@@ -24,6 +25,22 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
       onDemoAccess();
     }
   };
+
+  const taglines = [
+    "Transform chaos into clarity",
+    "Incidents analyzed automagically",
+    "From alert to resolution in minutes",
+    "AI agents that never sleep",
+    "Turn complexity into simplicity"
+  ];
+
+  // Rotate taglines every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTaglineIndex((prev) => (prev + 1) % taglines.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [taglines.length]);
 
   const keyFeatures = [
     {
@@ -71,12 +88,12 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
         <div className="relative z-10 min-h-screen flex items-center justify-center pt-16">
           <Container size="lg" className="text-center">
             {/* Hero Content */}
-            <div className={`space-y-6 md:space-y-8 mb-16 transition-all duration-1000 ${
+            <div className={`space-y-8 md:space-y-12 mb-16 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
               {/* Badge */}
               <div className="flex justify-center">
-                <Badge variant="primary" size="md" className="inline-flex items-center gap-2 bg-primary/90 backdrop-blur-sm">
+                <Badge variant="primary" size="md" className="inline-flex items-center gap-2 bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-lg">
                   <Zap className="w-4 h-4" />
                   Powered by Advanced AI
                 </Badge>
@@ -87,23 +104,63 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                 as="h1"
                 size="4xl"
                 weight="bold"
-                className="leading-tight max-w-4xl mx-auto text-white drop-shadow-lg"
+                className="leading-tight max-w-5xl mx-auto text-white text-shadow-lg"
+                style={{
+                  textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
+                  fontSize: isMobile ? '2.5rem' : '4rem',
+                  lineHeight: '1.1'
+                }}
               >
                 Agentic AI for
-                <br></br>
-                <span className="text-gradient bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                <br />
+                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent font-extrabold">
                   Faster Incident Resolution
                 </span>
               </Heading>
 
-              {/* Subheadline */}
+              {/* Animated Taglines */}
+              <div className="h-16 flex items-center justify-center">
+                <Text
+                  size="2xl"
+                  weight="medium"
+                  className="text-white/90 text-shadow-md transition-all duration-500 transform"
+                  style={{
+                    textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                    fontSize: isMobile ? '1.25rem' : '1.5rem'
+                  }}
+                  key={currentTaglineIndex}
+                >
+                  {taglines[currentTaglineIndex]}
+                </Text>
+              </div>
+
+              {/* Enhanced Subheadline */}
               <Text
                 size="xl"
-                className="max-w-4xl mx-auto leading-relaxed text-balance text-gray-100 drop-shadow-md"
+                className="max-w-4xl mx-auto leading-relaxed text-balance text-white/85 text-shadow-sm"
+                style={{
+                  textShadow: '0 2px 6px rgba(0,0,0,0.6)',
+                  fontSize: isMobile ? '1rem' : '1.125rem'
+                }}
               >
                 Autonomous AI agents accelerate incident resolution with intelligent root cause analysis,
                 automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
               </Text>
+
+              {/* Feature highlights with better contrast */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8">
+                {keyFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center gap-3 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20"
+                  >
+                    <feature.icon className="w-6 h-6 text-cyan-300" />
+                    <Text size="base" weight="medium" className="text-white text-shadow-sm">
+                      {feature.text}
+                    </Text>
+                  </div>
+                ))}
+              </div>
             </div>
 
           </Container>
