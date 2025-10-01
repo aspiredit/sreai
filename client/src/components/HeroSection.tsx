@@ -54,76 +54,125 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
         className="relative w-full min-h-screen flex items-center"
         size="xl"
       >
-        <Container size="lg" className="relative z-10">
-          <div className={`grid grid-cols-1 ${isMobile ? 'gap-8' : 'lg:grid-cols-2 gap-12'} items-center`}>
-            {/* Left Column - Content */}
-            <div className={`${isMobile ? 'text-center' : 'lg:text-left'} space-y-6 md:space-y-8 transition-all duration-1000 ${
+        <Container size="xl" className="relative z-10">
+          {/* Top Section - Header Content */}
+          <div className={`text-center space-y-6 md:space-y-8 mb-12 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            {/* Badge */}
+            <div className="flex justify-center">
+              <Badge variant="primary" size="md" className="inline-flex items-center gap-2">
+                <Zap className="w-4 h-4" />
+                Powered by Advanced AI
+              </Badge>
+            </div>
+
+            {/* Main Headline */}
+            <Heading
+              as="h1"
+              size="4xl"
+              weight="bold"
+              className="leading-tight max-w-4xl mx-auto"
+            >
+              Agentic AI for
+              <br></br>
+              <span className="text-gradient">
+                Faster Incident Resolution
+              </span>
+            </Heading>
+
+            {/* Subheadline */}
+            <Text
+              size="xl"
+              color="muted"
+              className="max-w-4xl mx-auto leading-relaxed text-balance"
+            >
+              Autonomous AI agents accelerate incident resolution with intelligent root cause analysis,
+              automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
+            </Text>
+          </div>
+
+          {/* Center Section - Large Video */}
+          <div className={`relative mb-16 transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div className="relative max-w-5xl mx-auto">
+              <div
+                className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 overflow-hidden"
+                style={{
+                  borderRadius: borderRadius['2xl'],
+                }}
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                  style={{ borderRadius: borderRadius.xl }}
+                >
+                  <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              {/* Floating Elements */}
+              <div
+                className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center animate-bounce"
+                style={{ backgroundColor: `${colors.feature.emerald}20` }}
+              >
+                <CheckCircle className="w-6 h-6" style={{ color: colors.feature.emerald }} />
+              </div>
+              <div
+                className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center animate-pulse"
+                style={{ backgroundColor: `${colors.feature.cyan}20` }}
+              >
+                <BarChart3 className="w-6 h-6" style={{ color: colors.feature.cyan }} />
+              </div>
+            </div>
+          </div>
+
+          {/* Key Features - Horizontal Row */}
+          <div
+            ref={featuresRef}
+            className={`flex ${isMobile ? 'flex-col gap-6' : 'flex-row justify-center gap-12'} items-center mb-16 transition-all duration-1000 delay-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              {/* Badge */}
-              <div className={isMobile ? 'flex justify-center' : ''}>
-                <Badge variant="primary" size="md" className="inline-flex items-center gap-2">
-                  <Zap className="w-4 h-4" />
-                  Powered by Advanced AI
-                </Badge>
-              </div>
-
-              {/* Main Headline */}
-              <Heading 
-                as="h1" 
-                size="4xl" 
-                weight="bold"
-                className={`${isMobile ? 'text-center' : 'lg:text-left'} leading-tight`}
+            }`}
+          >
+            {keyFeatures.map((feature, index) => (
+              <div
+                key={index}
+                className={`flex flex-col items-center text-center space-y-3 transition-all duration-800 ${
+                  visibleItems[index]
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-4'
+                }`}
+                style={{ transitionDelay: `${index * 200}ms` }}
               >
-                Agentic AI for{" "}
-                <span className="text-gradient">
-                  Faster Incident Resolution
-                </span>
-              </Heading>
-
-              {/* Subheadline */}
-              <Text 
-                size="xl" 
-                color="muted"
-                className={`${isMobile ? 'max-w-lg mx-auto text-center' : 'max-w-2xl lg:text-left'} leading-relaxed text-balance`}
-              >
-                Autonomous AI agents accelerate incident resolution with intelligent root cause analysis, 
-                automated troubleshooting, and proactive system monitoring for enterprise SRE teams.
-              </Text>
-
-              {/* Key Features */}
-              <div 
-                ref={featuresRef}
-                className={`flex ${isMobile ? 'flex-col gap-3' : 'flex-wrap gap-6'} ${isMobile ? 'items-center' : 'items-start'}`}
-              >
-                {keyFeatures.map((feature, index) => (
-                  <div 
-                    key={index} 
-                    className={`flex items-center gap-3 text-muted-foreground transition-all duration-800 ${
-                      visibleItems[index] 
-                        ? 'opacity-100 translate-y-0' 
-                        : 'opacity-0 translate-y-4'
-                    }`}
-                    style={{ transitionDelay: `${index * 200}ms` }}
-                  >
-                    <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                    <feature.icon 
-                      className="w-4 h-4 flex-shrink-0" 
-                      style={{ color: colors.feature[feature.color] }}
-                    />
-                    <Text size="base" weight="medium" className="text-foreground">
-                      {feature.text}
-                    </Text>
-                  </div>
-                ))}
-              </div>
-
-              {/* Role Selection */}
-              <div className="space-y-4">
-                <Text size="sm" weight="medium" color="muted" className={isMobile ? 'text-center' : ''}>
-                  Choose your role to get started:
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: `${colors.feature[feature.color]}20` }}
+                >
+                  <feature.icon
+                    className="w-8 h-8"
+                    style={{ color: colors.feature[feature.color] }}
+                  />
+                </div>
+                <Text size="lg" weight="semibold" className="text-foreground">
+                  {feature.text}
                 </Text>
-                <div className={`flex ${isMobile ? 'flex-col' : 'flex-col sm:flex-row'} gap-3`}>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Section - Role Selection and CTAs */}
+          <div className="text-center space-y-8">
+            {/* Role Selection */}
+            <div className="space-y-6">
+              <Text size="base" weight="medium" color="muted">
+                Choose your role to get started:
+              </Text>
+              <div className={`flex ${isMobile ? 'flex-col' : 'flex-row justify-center'} gap-6 max-w-4xl mx-auto`}>
                   <button
                     onClick={() => setSelectedRole("admin")}
                     className={`interactive flex items-center gap-3 p-4 md:p-6 rounded-xl border-2 transition-all duration-300 ${
@@ -146,12 +195,12 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                           : colors.feature.purple 
                       }} 
                     />
-                    <div className={`${isMobile ? 'text-center flex-1' : 'text-left'}`}>
+                    <div className="text-left flex-1">
                       <Text size="base" weight="semibold" className="mb-1">Administrator</Text>
                       <Text size="sm" color="muted">Manage all applications and AI agents</Text>
                     </div>
                   </button>
-                  
+
                   <button
                     onClick={() => setSelectedRole("user")}
                     className={`interactive flex items-center gap-3 p-4 md:p-6 rounded-xl border-2 transition-all duration-300 ${
@@ -166,15 +215,15 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                     }}
                     data-testid="hero-role-user"
                   >
-                    <BarChart3 
-                      className="w-5 h-5 flex-shrink-0" 
-                      style={{ 
-                        color: selectedRole === "user" 
-                          ? colors.primary[500] 
-                          : colors.feature.blue 
-                      }} 
+                    <BarChart3
+                      className="w-5 h-5 flex-shrink-0"
+                      style={{
+                        color: selectedRole === "user"
+                          ? colors.primary[500]
+                          : colors.feature.blue
+                      }}
                     />
-                    <div className={`${isMobile ? 'text-center flex-1' : 'text-left'}`}>
+                    <div className="text-left flex-1">
                       <Text size="base" weight="semibold" className="mb-1">User</Text>
                       <Text size="sm" color="muted">Monitor assigned applications</Text>
                     </div>
@@ -183,7 +232,7 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <Button
                   onClick={handleGetStarted}
                   disabled={!selectedRole}
@@ -226,8 +275,8 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
 
               {/* Role Description */}
               {selectedRole && (
-                <div 
-                  className={`transition-all duration-300 ${
+                <div
+                  className={`max-w-2xl mx-auto transition-all duration-300 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
                   style={{
@@ -238,7 +287,7 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                   }}
                 >
                   <Text size="sm" className="text-primary">
-                    {selectedRole === "admin" 
+                    {selectedRole === "admin"
                       ? "Access full configuration controls, AI chat assistance, and system management capabilities."
                       : "View your assigned applications with diagnostic tools, monitoring dashboards, and AI insights."
                     }
@@ -246,47 +295,6 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                 </div>
               )}
             </div>
-
-            {/* Right Column - Visual */}
-            <div className={`relative transition-all duration-1000 delay-300 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <div className="relative">
-                <div
-                  className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 overflow-hidden"
-                  style={{
-                    borderRadius: borderRadius['2xl'],
-                  }}
-                >
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                    style={{ borderRadius: borderRadius.xl }}
-                  >
-                    <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-
-                {/* Floating Elements */}
-                <div
-                  className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center animate-bounce"
-                  style={{ backgroundColor: `${colors.feature.emerald}20` }}
-                >
-                  <CheckCircle className="w-6 h-6" style={{ color: colors.feature.emerald }} />
-                </div>
-                <div
-                  className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center animate-pulse"
-                  style={{ backgroundColor: `${colors.feature.cyan}20` }}
-                >
-                  <BarChart3 className="w-6 h-6" style={{ color: colors.feature.cyan }} />
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Social Proof */}
           <div 
