@@ -1,3 +1,4 @@
+import React from "react";
 import ApplicationCard from '../ApplicationCard';
 
 export default function ApplicationCardExample() {

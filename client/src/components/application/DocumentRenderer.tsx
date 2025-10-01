@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import mermaid from 'mermaid';
 import { Card, CardContent } from '@/components/ui/card';

@@ -1,3 +1,4 @@
+import React from "react";
 import StatusIndicator from '../StatusIndicator';
 
 export default function StatusIndicatorExample() {

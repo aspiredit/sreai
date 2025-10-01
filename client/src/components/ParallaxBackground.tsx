@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParallax } from '@/hooks/use-scroll-animation';
 
 interface ParallaxBackgroundProps {

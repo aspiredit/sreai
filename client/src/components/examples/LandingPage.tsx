@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import LandingPage from '../LandingPage';
 
 export default function LandingPageExample() {

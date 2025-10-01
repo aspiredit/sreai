@@ -1,3 +1,4 @@
+import React from "react";
 import { ChevronRight, Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import ConnectorCard from '../ConnectorCard';
 
 export default function ConnectorCardExample() {
