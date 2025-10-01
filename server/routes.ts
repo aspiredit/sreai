@@ -6,17 +6,32 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  console.log('Registering API routes...');
+  console.log('🚀 Registering API routes...');
 
   // Test endpoint
   app.get("/api/test", (req, res) => {
-    console.log('GET /api/test endpoint hit!');
+    console.log('✅ GET /api/test endpoint hit!');
     res.json({ message: "API is working!", timestamp: new Date().toISOString() });
   });
 
+  console.log('📝 Registered GET /api/test');
+
+  // Health check endpoint
+  app.get("/api/health", (req, res) => {
+    console.log('✅ GET /api/health endpoint hit!');
+    res.json({
+      status: "ok",
+      message: "Server is running",
+      timestamp: new Date().toISOString(),
+      env: process.env.NODE_ENV
+    });
+  });
+
+  console.log('📝 Registered GET /api/health');
+
   // Contact form endpoint
   app.post("/api/contact", async (req, res) => {
-    console.log('POST /api/contact endpoint hit!');
+    console.log('✅ POST /api/contact endpoint hit!');
     console.log('Request body:', req.body);
 
     // Set proper JSON response headers
@@ -113,6 +128,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     }
   });
+
+  console.log('📝 Registered POST /api/contact');
+  console.log('🎯 All API routes registered successfully!');
 
   const httpServer = createServer(app);
 
