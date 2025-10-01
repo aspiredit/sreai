@@ -31,19 +31,27 @@ export default defineConfig(({ mode }) => ({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: isGitHubPages 
+    outDir: isGitHubPages
       ? path.resolve(__dirname, "dist/github-pages")
       : path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    // Optimize for static hosting
-    rollupOptions: isGitHubPages ? {
+    // Use consistent asset names to prevent 404 errors
+    rollupOptions: {
       output: {
-        manualChunks: {
+        entryFileNames: 'index.js',
+        chunkFileNames: '[name].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'index.css';
+          }
+          return '[name].[ext]';
+        },
+        manualChunks: isGitHubPages ? {
           vendor: ['react', 'react-dom'],
           ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-        },
+        } : undefined,
       },
-    } : undefined,
+    },
   },
   server: {
     port: 3000,

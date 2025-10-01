@@ -33,6 +33,7 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run build:github-pages
         env:
+          GITHUB_PAGES: true
           GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Setup Pages
