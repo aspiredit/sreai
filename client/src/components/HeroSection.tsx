@@ -76,6 +76,15 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
             loop
             playsInline
             className="w-full h-full object-cover"
+            style={{
+              animationName: 'slowVideo',
+              animationDuration: '1s',
+              animationFillMode: 'forwards'
+            }}
+            onLoadedData={(e) => {
+              const video = e.target as HTMLVideoElement;
+              video.playbackRate = 0.85; // 15% slower (100% - 15% = 85%)
+            }}
           >
             <source src="https://yesre-ai-videos.s3.amazonaws.com/Res_V1.mp4" type="video/mp4" />
             Your browser does not support the video tag.
@@ -93,8 +102,19 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
             }`}>
               {/* Badge */}
               <div className="flex justify-center">
-                <Badge variant="primary" size="md" className="inline-flex items-center gap-2 bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-lg">
-                  <Zap className="w-4 h-4" />
+                <Badge
+                  variant="primary"
+                  size="md"
+                  className="inline-flex items-center gap-2 border backdrop-blur-md shadow-lg"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    color: '#ffffff',
+                    textShadow: '0 0 10px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,1)',
+                    fontWeight: '600'
+                  }}
+                >
+                  <Zap className="w-4 h-4" style={{ filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.8))' }} />
                   Powered by Advanced AI
                 </Badge>
               </div>
@@ -104,16 +124,33 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                 as="h1"
                 size="4xl"
                 weight="bold"
-                className="leading-tight max-w-5xl mx-auto text-white text-shadow-lg"
+                className="leading-tight max-w-5xl mx-auto"
                 style={{
-                  textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
                   fontSize: isMobile ? '2.5rem' : '4rem',
                   lineHeight: '1.1'
                 }}
               >
-                Agentic AI for
+                <span
+                  className="font-extrabold"
+                  style={{
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 25%, #e0f2fe 50%, #bae6fd 75%, #7dd3fc 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(0 0 10px rgba(0,0,0,0.6))'
+                  }}
+                >
+                  Agentic AI for
+                </span>
                 <br />
-                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent font-extrabold">
+                <span
+                  className="font-extrabold"
+                  style={{
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 25%, #e0f2fe 50%, #bae6fd 75%, #7dd3fc 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(0 0 10px rgba(0,0,0,0.6))'
+                  }}
+                >
                   Faster Incident Resolution
                 </span>
               </Heading>
@@ -123,10 +160,12 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                 <Text
                   size="2xl"
                   weight="medium"
-                  className="text-white/90 text-shadow-md transition-all duration-500 transform"
+                  className="transition-all duration-500 transform"
                   style={{
-                    textShadow: '0 2px 8px rgba(0,0,0,0.7)',
-                    fontSize: isMobile ? '1.25rem' : '1.5rem'
+                    color: '#ffffff',
+                    textShadow: '0 0 15px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.7), 2px 2px 4px rgba(0,0,0,1)',
+                    fontSize: isMobile ? '1.25rem' : '1.5rem',
+                    fontWeight: '600'
                   }}
                   key={currentTaglineIndex}
                 >
@@ -137,10 +176,12 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
               {/* Enhanced Subheadline */}
               <Text
                 size="xl"
-                className="max-w-4xl mx-auto leading-relaxed text-balance text-white/85 text-shadow-sm"
+                className="max-w-4xl mx-auto leading-relaxed text-balance"
                 style={{
-                  textShadow: '0 2px 6px rgba(0,0,0,0.6)',
-                  fontSize: isMobile ? '1rem' : '1.125rem'
+                  color: '#f8fafc',
+                  textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6), 1px 1px 2px rgba(0,0,0,1)',
+                  fontSize: isMobile ? '1rem' : '1.125rem',
+                  fontWeight: '500'
                 }}
               >
                 Autonomous AI agents accelerate incident resolution with intelligent root cause analysis,
@@ -152,10 +193,28 @@ export default function HeroSection({ onDemoAccess, onLearnMore }: HeroSectionPr
                 {keyFeatures.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-center gap-3 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20"
+                    className="flex items-center justify-center gap-3 p-4 rounded-lg backdrop-blur-sm border"
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      borderColor: 'rgba(255, 255, 255, 0.3)'
+                    }}
                   >
-                    <feature.icon className="w-6 h-6 text-cyan-300" />
-                    <Text size="base" weight="medium" className="text-white text-shadow-sm">
+                    <feature.icon
+                      className="w-6 h-6"
+                      style={{
+                        color: '#ffffff',
+                        filter: 'drop-shadow(0 0 6px rgba(0,0,0,0.8))'
+                      }}
+                    />
+                    <Text
+                      size="base"
+                      weight="medium"
+                      style={{
+                        color: '#ffffff',
+                        textShadow: '0 0 8px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,1)',
+                        fontWeight: '600'
+                      }}
+                    >
                       {feature.text}
                     </Text>
                   </div>

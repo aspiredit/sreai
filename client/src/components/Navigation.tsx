@@ -89,13 +89,21 @@ export default function Navigation({
             <div className="flex items-center">
               <button
                 onClick={() => handleSectionClick("home")}
-                className="flex items-center gap-3 text-xl font-bold text-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-3 text-xl font-bold transition-colors"
                 data-testid="nav-logo"
+                style={{
+                  color: '#ffffff',
+                  textShadow: '0 0 10px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,1)',
+                  fontWeight: '700'
+                }}
               >
                 <img
                   src="https://yesre-ai-website.s3.amazonaws.com/sreai-logo.png"
                   alt="SREAI Logo"
-                  className="w-8 h-8 object-contain dark:invert dark:brightness-0 dark:contrast-100"
+                  className="w-8 h-8 object-contain"
+                  style={{
+                    filter: 'brightness(0) invert(1) drop-shadow(0 0 4px rgba(0,0,0,0.8))',
+                  }}
                 />
                 YESRE
               </button>
@@ -107,12 +115,13 @@ export default function Navigation({
                 <button
                   key={item.id}
                   onClick={() => handleSectionClick(item.id)}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    currentSection === item.id 
-                      ? "text-primary" 
-                      : "text-muted-foreground"
-                  }`}
+                  className="text-sm font-medium transition-colors"
                   data-testid={`nav-${item.id}`}
+                  style={{
+                    color: currentSection === item.id ? '#60a5fa' : '#ffffff',
+                    textShadow: '0 0 8px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,1)',
+                    fontWeight: currentSection === item.id ? '700' : '600'
+                  }}
                 >
                   {item.label}
                 </button>
@@ -125,8 +134,15 @@ export default function Navigation({
               <Button
                 onClick={onDemoAccess}
                 size="sm"
-                className="bg-primary hover:bg-primary/90"
+                className="transition-colors"
                 data-testid="nav-cta-demo"
+                style={{
+                  backgroundColor: '#2563eb',
+                  color: '#ffffff',
+                  textShadow: '0 0 6px rgba(0,0,0,0.8)',
+                  fontWeight: '600',
+                  border: '1px solid rgba(255,255,255,0.2)'
+                }}
               >
                 Try Demo
               </Button>
@@ -137,14 +153,18 @@ export default function Navigation({
               <ThemeToggle />
               <button
                 onClick={toggleMobileMenu}
-                className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="p-2 rounded-md transition-colors"
                 data-testid="nav-mobile-toggle"
                 aria-label="Toggle mobile menu"
+                style={{
+                  color: '#ffffff',
+                  textShadow: '0 0 6px rgba(0,0,0,0.8)'
+                }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" style={{ filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.8))' }} />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-5 h-5" style={{ filter: 'drop-shadow(0 0 4px rgba(0,0,0,0.8))' }} />
                 )}
               </button>
             </div>
