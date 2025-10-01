@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function registerRoutes(app: Express): Promise<Server> {
   console.log('🚀 Registering API routes...');
@@ -65,9 +65,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Send email using Resend
-      if (process.env.RESEND_API_KEY) {
+      if (resend) {
         try {
-          await resend.emails.send({
+          const emailResult = await resend.emails.send({
             from: "YESRE Contact Form <contact@yesre.ai>", // Using your verified domain
             to: ["krand03@gmail.com"], // Your Gmail for receiving emails
             subject: `New Contact Form Submission - ${inquiryType || 'General'}`,
@@ -100,7 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             reply_to: email
           });
 
-          console.log(`Contact form email sent successfully from ${email}`);
+          console.log(`✅ Contact form email sent successfully! Email ID: ${emailResult.id}, From: ${email}`);
         } catch (emailError) {
           console.error("Failed to send email:", emailError);
           // Don't fail the request if email fails - still store the submission
