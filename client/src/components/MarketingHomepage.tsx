@@ -1,5 +1,5 @@
 import { useLocation } from "wouter";
-import { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Navigation from "./Navigation";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
