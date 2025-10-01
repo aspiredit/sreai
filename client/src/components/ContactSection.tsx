@@ -57,15 +57,23 @@ export default function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
+  const scrollToContactForm = () => {
+    const contactForm = document.querySelector('[data-testid="contact-form"]');
+    if (contactForm) {
+      contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const contactMethods = [
     {
       icon: Mail,
       title: "Email Us",
-      content: "hello@yesre.ai",
+      content: "Contact",
       subtitle: "We'll respond within 24 hours",
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
-      action: "mailto:hello@yesre.ai"
+      action: "scroll",
+      onClick: scrollToContactForm
     },
     {
       icon: Phone,
@@ -277,27 +285,48 @@ export default function ContactSection() {
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-1000 delay-200 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          {contactMethods.map((method, index) => (
-            <a
-              key={index}
-              href={method.action}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center"
-            >
-              <div className={`w-16 h-16 ${method.bgColor} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                <method.icon className={`w-8 h-8 ${method.color}`} />
-              </div>
-              <h3 className="font-semibold mb-2 text-foreground">{method.title}</h3>
-              <p className="text-foreground font-medium mb-1">{method.content}</p>
-              <p className="text-sm text-muted-foreground">{method.subtitle}</p>
-            </a>
-          ))}
+          {contactMethods.map((method, index) => {
+            if (method.action === "scroll") {
+              return (
+                <button
+                  key={index}
+                  onClick={method.onClick}
+                  className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center"
+                >
+                  <div className={`w-16 h-16 ${method.bgColor} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                    <method.icon className={`w-8 h-8 ${method.color}`} />
+                  </div>
+                  <h3 className="font-semibold mb-2 text-foreground">{method.title}</h3>
+                  <div className="text-foreground font-medium mb-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                    {method.content}
+                  </div>
+                  <p className="text-sm text-muted-foreground">{method.subtitle}</p>
+                </button>
+              );
+            }
+
+            return (
+              <a
+                key={index}
+                href={method.action}
+                className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg text-center"
+              >
+                <div className={`w-16 h-16 ${method.bgColor} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
+                  <method.icon className={`w-8 h-8 ${method.color}`} />
+                </div>
+                <h3 className="font-semibold mb-2 text-foreground">{method.title}</h3>
+                <p className="text-foreground font-medium mb-1">{method.content}</p>
+                <p className="text-sm text-muted-foreground">{method.subtitle}</p>
+              </a>
+            );
+          })}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className={`transition-all duration-1000 delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
+          }`} data-testid="contact-form">
             <div className="bg-card rounded-2xl border border-border p-8">
               <h3 className="text-2xl font-bold mb-6 text-foreground">Send us a message</h3>
               
