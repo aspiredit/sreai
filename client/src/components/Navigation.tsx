@@ -105,7 +105,7 @@ export default function Navigation({
                     filter: 'brightness(0) invert(1) drop-shadow(0 0 4px rgba(0,0,0,0.8))',
                   }}
                 />
-                YESRE
+                unQuery
               </button>
             </div>
 

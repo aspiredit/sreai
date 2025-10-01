@@ -68,7 +68,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (resend) {
         try {
           const emailResult = await resend.emails.send({
-            from: "YESRE Contact Form <contact@yesre.ai>", // Using your verified domain
+            from: "unQuery Contact Form <contact@yesre.ai>", // Using your verified domain
             to: ["krand03@gmail.com"], // Your Gmail for receiving emails
             subject: `New Contact Form Submission - ${inquiryType || 'General'}`,
             html: `

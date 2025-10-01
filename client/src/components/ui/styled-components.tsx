@@ -1,5 +1,5 @@
 /**
- * Reusable styled components based on the YESRE design system
+ * Reusable styled components based on the unQuery design system
  */
 
 import React from 'react';

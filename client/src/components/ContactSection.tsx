@@ -129,19 +129,19 @@ export default function ContactSection() {
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com/company/YESRE",
+      url: "https://linkedin.com/company/unQuery",
       color: "text-blue-600"
     },
     {
       icon: Twitter,
       name: "Twitter",
-      url: "https://twitter.com/YESRE",
+      url: "https://twitter.com/unQuery",
       color: "text-sky-500"
     },
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com/YESRE",
+      url: "https://github.com/unQuery",
       color: "text-gray-700"
     }
   ];

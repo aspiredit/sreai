@@ -1,5 +1,5 @@
 /**
- * YESRE Design System
+ * unQuery Design System
  * Comprehensive design tokens and utilities for consistent styling
  */
 

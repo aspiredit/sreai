@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
   const testimonials: Testimonial[] = [
     {
       id: "1",
-      quote: "YESRE has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
+      quote: "unQuery has transformed how our team handles incidents. What used to take hours now takes minutes, and our engineers can focus on building instead of firefighting. The AI insights are incredibly accurate.",
       author: "Anil Srikantham",
       title: "CEO & Founder",
       company: "CluCloud",
@@ -88,7 +88,7 @@ export default function TestimonialsSection() {
     },
     {
       id: "3",
-      quote: "YESRE's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
+      quote: "unQuery's proactive monitoring caught issues we didn't even know existed. The AI chat feature feels like having a senior engineer available 24/7. Our uptime has never been better.",
       author: "Kranthi D",
       title: "CTO",
       company: "myabsolutefaith.com",
@@ -177,7 +177,7 @@ export default function TestimonialsSection() {
             Trusted by Engineering Teams Worldwide
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto">
-            See how teams like yours are transforming their incident resolution with YESRE's AI-powered platform
+            See how teams like yours are transforming their incident resolution with unQuery's AI-powered platform
           </p>
         </div>
 
@@ -328,49 +328,6 @@ export default function TestimonialsSection() {
           </div>
         </div>
 
-        {/* Awards & Recognition */}
-        <div className={`mt-20 transition-all duration-1000 delay-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4 text-foreground">Awards & Recognition</h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                icon: Award,
-                title: "Best AI Innovation 2024",
-                organization: "TechCrunch Disrupt",
-                color: "text-yellow-500",
-                bgColor: "bg-yellow-500/10"
-              },
-              {
-                icon: Star,
-                title: "Top SRE Tool 2024",
-                organization: "DevOps Weekly",
-                color: "text-purple-500",
-                bgColor: "bg-purple-500/10"
-              },
-              {
-                icon: TrendingUp,
-                title: "Fastest Growing Startup",
-                organization: "Inc. 5000",
-                color: "text-green-500",
-                bgColor: "bg-green-500/10"
-              }
-            ].map((award, index) => (
-              <div key={index} className="text-center p-6 bg-background rounded-xl border border-border">
-                <div className={`w-16 h-16 ${award.bgColor} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <award.icon className={`w-8 h-8 ${award.color}`} />
-                </div>
-                <h4 className="font-semibold mb-2 text-foreground">{award.title}</h4>
-                <p className="text-sm text-muted-foreground">{award.organization}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* CTA Section */}
         <div className={`mt-20 text-center transition-all duration-1000 delay-600 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -380,7 +337,7 @@ export default function TestimonialsSection() {
               Join thousands of satisfied customers
             </h3>
             <p className="text-lg text-muted-foreground mb-6">
-              Start your free trial today and see why engineering teams choose YESRE for incident resolution
+              Start your free trial today and see why engineering teams choose unQuery for incident resolution
             </p>
             <Button
               size="lg"
